@@ -95,7 +95,7 @@ _handleResults(results) {
 ...
 
 ...
-<Search
+<SearchBar
   ref={(ref) => this.searchBar = ref}
   data={items}
   handleResults={this._handleResults}
