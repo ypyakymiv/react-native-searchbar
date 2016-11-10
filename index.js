@@ -4,7 +4,6 @@ import {
   Dimensions,
   Platform,
   View,
-  Text,
   TextInput,
   TouchableOpacity,
   Animated,
