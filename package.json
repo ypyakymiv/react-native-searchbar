@@ -2,11 +2,22 @@
   "name": "react-native-searchbar",
   "version": "0.0.1",
   "description": "A pretty awesome search bar for React Native",
+  "keywords": [
+  "react-native",
+  "search",
+  "bar",
+  "searchbar",
+  "animated"
+],
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no tests specified\" && exit 1"
   },
-  "author": "Dave Olsen",
+  "author": {
+    "name": "Dave Olsen",
+    "email": "do@localz.co",
+    "url": "https://github.com/daveols"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/localz/react-native-searchbar.git"
