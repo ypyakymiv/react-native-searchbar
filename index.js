@@ -4,6 +4,7 @@ import {
   Dimensions,
   Platform,
   View,
+  Text,
   TextInput,
   TouchableOpacity,
   Animated,
@@ -12,19 +13,19 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { filter, some, includes } from 'lodash/collection';
 import { debounce } from 'lodash/function';
 
-const INITIAL_TOP = Platform.OS === 'ios' ? -80 : -66;
+const INITIAL_TOP = Platform.OS === 'ios' ? -80 : -60;
 
 export default class Search extends Component {
 
   static propTypes = {
-    placeholder: PropTypes.string,
     data: PropTypes.array,
+    placeholder: PropTypes.string,
+    handleChangeText: PropTypes.func,
     handleSearch: PropTypes.func,
     handleResults: PropTypes.func,
-    handleChangeText: PropTypes.func,
+    onHide: PropTypes.func,
     onBack: PropTypes.func,
-    showX: PropTypes.bool,
-    onBlur: PropTypes.func,
+    heightAdjust: PropTypes.number,
     backgroundColor: PropTypes.string,
     iconColor: PropTypes.string,
     textColor: PropTypes.string,
@@ -32,11 +33,15 @@ export default class Search extends Component {
     animate: PropTypes.bool,
     animationDuration: PropTypes.number,
     showOnLoad: PropTypes.bool,
+    hideBack: PropTypes.bool,
+    hideX: PropTypes.bool,
+    filter: PropTypes.bool,
   }
 
   static defaultProps = {
+    data: [],
     placeholder: 'Search',
-    showX: true,
+    heightAdjust: 0,
     backgroundColor: 'white',
     iconColor: 'gray',
     textColor: 'gray',
@@ -44,6 +49,9 @@ export default class Search extends Component {
     animate: true,
     animationDuration: 200,
     showOnLoad: false,
+    hideBack: false,
+    hideX: false,
+    filter: true,
   }
 
   constructor(props) {
@@ -53,17 +61,20 @@ export default class Search extends Component {
       data: props.data,
       results: [],
       show: props.showOnLoad,
-      top: new Animated.Value(props.showOnLoad ? 0 : INITIAL_TOP),
+      top: new Animated.Value(props.showOnLoad ? 0 : INITIAL_TOP + props.heightAdjust),
     };
 
     this.hide = this.hide.bind(this);
-    this._internalSearch = this._internalSearch.bind(this);
+    this._doHide = this._doHide.bind(this);
+    this._clearInput = this._clearInput.bind(this);
     this._onChangeText = this._onChangeText.bind(this);
+    this._internalSearch = this._internalSearch.bind(this);
   }
 
   show() {
     const { animate, animationDuration } = this.props;
-    this.setState({ show: true, input: '' });
+    this.setState({ show: true });
+    this._clearInput();
     if (animate) {
       Animated.timing(
         this.state.top, {
@@ -75,7 +86,7 @@ export default class Search extends Component {
   }
 
   hide() {
-    const { animate, animationDuration } = this.props;
+    const { animate, animationDuration, onHide } = this.props;
     if (animate) {
       Animated.timing(
         this.state.top, {
@@ -84,11 +95,25 @@ export default class Search extends Component {
         }
       ).start();
       setTimeout(() => {
-        this.setState({ show: false });
+        this._doHide();
       }, animationDuration)
     } else {
-      this.setState({ show: false });
+      this._doHide()
     }
+  }
+
+  _doHide() {
+    const { onHide } = this.props;
+    if (onHide) {
+      onHide(this.state.input);
+    }
+    this.setState({ show: false });
+    this._clearInput();
+  }
+
+  _clearInput() {
+    this.setState({ input: '' });
+    this._onChangeText('');
   }
 
   _onChangeText(input) {
@@ -107,12 +132,15 @@ export default class Search extends Component {
         if (handleResults) {
           handleResults(results);
         }
-        console.log('results: ', results);
+        console.log(results);
       }, 500)();
     }
   }
 
   _internalSearch(input) {
+    if (input === '') {
+      return filter ? this.state.data : [];
+    }
     return filter(this.state.data, (item) => {
       return this._depthFirstSearch(item, input)
     });
@@ -129,40 +157,43 @@ export default class Search extends Component {
   }
 
   render() {
-    const { onBack, onBlur, placeholder, backgroundColor, iconColor, textColor, placeholderTextColor } = this.props;
+    const { placeholder, heightAdjust, backgroundColor, iconColor, textColor, placeholderTextColor, onBack, hideBack, hideX } = this.props;
     return (
       <Animated.View style={[styles.container, { top: this.state.top }]}>
         {
           this.state.show &&
-          <View>
-            { Platform.OS === 'ios' && <View style={{ backgroundColor, height: 20, zIndex: 10 }} elevation={3}/> }
-            <View style={[styles.navWrapper, { backgroundColor }]} elevation={3}>
-              <View style={styles.nav}>
-                {
-                  true &&
-                  <TouchableOpacity onPress={onBack || this.hide}>
-                    <Icon name='arrow-back' size={28} style={[styles.icon, { color: iconColor }]}/>
-                  </TouchableOpacity>
-                }
-                <TextInput
-                  ref={(ref) => this.textInput = ref}
-                  onLayout={() => this.textInput.focus()}
-                  style={[styles.input, { color: textColor, marginLeft: true ? 0 : 30 }]}
-                  onChangeText={(input) => this._onChangeText(input)}
-                  onBlur={() => this.hide()}
-                  placeholder={placeholder}
-                  placeholderTextColor={placeholderTextColor}
-                  value={this.state.input}
-                  underlineColorAndroid='transparent'
-                  returnKeyType='search'
-                />
+          <View style={[styles.navWrapper, { backgroundColor }]} >
+            { Platform.OS === 'ios' && <View style={{ height: 20 }} /> }
+            <View style={[styles.nav, { height: (Platform.OS === 'ios' ? 52 : 62) + heightAdjust }]}>
               {
-                true &&
-                <TouchableOpacity onPress={() => this.setState({ input: '' })}>
-                    <Icon name='close' size={28} style={[styles.icon, { color: iconColor }]}/>
+                !hideBack &&
+                <TouchableOpacity onPress={onBack || this.hide}>
+                  <Icon name='arrow-back' size={28} style={[styles.icon, { color: iconColor }]}/>
                 </TouchableOpacity>
               }
-              </View>
+              <TextInput
+                ref={(ref) => this.textInput = ref}
+                onLayout={() => this.textInput.focus()}
+                style={[
+                  styles.input,
+                  {
+                    color: textColor, marginLeft: hideBack ? 30 : 0,
+                    marginTop: (Platform.OS === 'ios' ? heightAdjust / 2 + 10 : 0)
+                  }
+                ]}
+                onChangeText={(input) => this._onChangeText(input)}
+                placeholder={placeholder}
+                placeholderTextColor={placeholderTextColor}
+                value={this.state.input}
+                underlineColorAndroid='transparent'
+                returnKeyType='search'
+              />
+            {
+              !hideX &&
+              <TouchableOpacity onPress={this._clearInput}>
+                  <Icon name='close' size={28} style={[styles.icon, { color: iconColor }]}/>
+              </TouchableOpacity>
+            }
             </View>
           </View>
         }
@@ -175,17 +206,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     zIndex: 10,
+    position: 'absolute',
+    shadowRadius: 5,
+    shadowOpacity: 0.7,
   },
   navWrapper: {
     width: Dimensions.get('window').width,
-    shadowRadius: 5,
-    shadowOpacity: 0.7,
-    position: 'absolute',
   },
   nav: {
     ...Platform.select({
-        ios: { height: 52 },
-        android: { height: 66 },
+        android: {
+          borderBottomColor: 'lightgray',
+          borderBottomWidth: StyleSheet.hairlineWidth,
+        },
     }),
     flex: 1,
     flexDirection: 'row',
@@ -193,9 +226,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   input: {
-    height: 30,
+    ...Platform.select({
+        ios: { height: 30 },
+        android: { height: 50 },
+    }),
     width: Dimensions.get('window').width - 120,
-    marginTop: 11,
     fontSize: 20,
   },
   icon: {
