@@ -7,7 +7,9 @@
   "search",
   "bar",
   "searchbar",
-  "animated"
+  "animated",
+  "ios",
+  "android"
 ],
   "main": "index.js",
   "scripts": {

@@ -6,9 +6,7 @@ The search function uses a depth-first algorithm to traverse the data and simply
 
 Works on both iOS and Android.
 
-... and it's animated.
-
-![react-native-searchbar](http://i.imgur.com/Mj9tsEx.gif)
+![react-native-searchbar](http://i.imgur.com/i21YwnW.gif)
 
 (Rendered with the example in these docs and repository)
 
@@ -45,14 +43,12 @@ Works on both iOS and Android.
 
 ## Usage
 
-
-
 - Use a ref to show and hide the search bar `ref={(ref) => this.searchBar = ref}`
 	- `this.searchBar.show()`
 	- `this.searchBar.hide()`
 
 - Write your own search logic with `handleSearch` or provide some `data` and use the results handed back from `handleResults`.
-- Use your powers for good.
+- Use your powers for good!
 
 
 ##### Notes for Android
@@ -64,7 +60,7 @@ Works on both iOS and Android.
 
 ## Example
 
-Full example at `/example/example.js`
+Full example at `example/`
 
 ```javascript
 import SearchBar from 'react-native-searchbar';
