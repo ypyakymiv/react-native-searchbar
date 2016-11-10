@@ -34,7 +34,6 @@ export default class Search extends Component {
     showOnLoad: PropTypes.bool,
     hideBack: PropTypes.bool,
     hideX: PropTypes.bool,
-    filter: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -50,7 +49,6 @@ export default class Search extends Component {
     showOnLoad: false,
     hideBack: false,
     hideX: false,
-    filter: true,
   }
 
   constructor(props) {
@@ -112,7 +110,6 @@ export default class Search extends Component {
 
   _clearInput() {
     this.setState({ input: '' });
-    this._onChangeText('');
   }
 
   _onChangeText(input) {
@@ -138,7 +135,7 @@ export default class Search extends Component {
 
   _internalSearch(input) {
     if (input === '') {
-      return filter ? this.state.data : [];
+      return this.state.data;
     }
     return filter(this.state.data, (item) => {
       return this._depthFirstSearch(item, input)

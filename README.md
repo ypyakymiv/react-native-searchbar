@@ -39,7 +39,6 @@ Works on both iOS and Android.
 	showOnLoad | boolean | `false` | Show the search bar when it is first rendered.
 	hideBack | boolean | `false` | Hide the back button.
 	hideX | boolean | `false` | Hide the X icon which clears the input.
-	filter | boolean | `true` | Use empty string as a search parameter in the default search (full results list when empty vs empty list).
 
 ## Usage
 
