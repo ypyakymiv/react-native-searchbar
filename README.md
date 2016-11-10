@@ -8,7 +8,7 @@ Works on both iOS and Android.
 
 ... and it's animated.
 
-
+![react-native-searchbar](http://i.imgur.com/Mj9tsEx.gif)
 
 (Rendered with the example in these docs and repository)
 
