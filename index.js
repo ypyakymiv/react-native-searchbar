@@ -110,7 +110,7 @@ export default class Search extends Component {
 
   _clearInputAndSearch() {
     this.setState({ input: '' });
-    this._onChangeText(input);
+    this._onChangeText('');
   }
 
   _onChangeText(input) {
@@ -160,7 +160,10 @@ export default class Search extends Component {
           this.state.show &&
           <View style={[styles.navWrapper, { backgroundColor }]} >
             {  Platform.OS === 'ios' && iOSPadding&& <View style={{ height: 20 }} /> }
-            <View style={[styles.nav, { height: (Platform.OS === 'ios' ? 52 : 62) + heightAdjust }]}>
+            <View style={[
+                styles.nav, { height: (Platform.OS === 'ios' ? 52 : 62) + heightAdjust },
+              ]}
+            >
               {
                 !hideBack &&
                 <TouchableOpacity onPress={onBack || this.hide}>
@@ -184,12 +187,9 @@ export default class Search extends Component {
                 underlineColorAndroid='transparent'
                 returnKeyType='search'
               />
-            {
-              !hideX && this.state.input !== '' &&
               <TouchableOpacity onPress={this._clearInputAndSearch}>
-                  <Icon name='close' size={28} style={[styles.icon, { color: iconColor }]}/>
+                  <Icon name={'close'} size={28} style={[styles.icon, { color: hideX || this.state.input == '' ? backgroundColor : iconColor }]}/>
               </TouchableOpacity>
-            }
             </View>
           </View>
         }
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
     }),
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
   },
   input: {
