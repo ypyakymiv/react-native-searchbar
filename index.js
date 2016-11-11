@@ -35,6 +35,8 @@ export default class Search extends Component {
     hideBack: PropTypes.bool,
     hideX: PropTypes.bool,
     iOSPadding: PropTypes.bool,
+    clearOnShow: PropTypes.bool,
+    clearOnHide: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -51,6 +53,8 @@ export default class Search extends Component {
     hideBack: false,
     hideX: false,
     iOSPadding: true,
+    clearOnShow: false,
+    clearOnHide: true,
   }
 
   constructor(props) {
@@ -71,8 +75,11 @@ export default class Search extends Component {
   }
 
   show() {
-    const { animate, animationDuration } = this.props;
-    this.setState({ show: true, input: '' });
+    const { animate, animationDuration, clearOnShow } = this.props;
+    if (clearOnShow) {
+      this._clearInputAndSearch();
+    }
+    this.setState({ show: true });
     if (animate) {
       Animated.timing(
         this.state.top, {
@@ -84,7 +91,8 @@ export default class Search extends Component {
   }
 
   hide() {
-    const { animate, animationDuration, onHide } = this.props;
+    const { animate, animationDuration } = this.props;
+    this.setState({ show: false });
     if (animate) {
       Animated.timing(
         this.state.top, {
@@ -101,11 +109,14 @@ export default class Search extends Component {
   }
 
   _doHide() {
-    const { onHide } = this.props;
+    const { onHide, clearOnHide } = this.props;
     if (onHide) {
       onHide(this.state.input);
     }
-    this.setState({ show: false, input: '' });
+    this.setState({ show: false });
+    if (clearOnHide) {
+      this._clearInputAndSearch();
+    }
   }
 
   _clearInputAndSearch() {
