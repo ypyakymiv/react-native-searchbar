@@ -65,15 +65,14 @@ export default class Search extends Component {
 
     this.hide = this.hide.bind(this);
     this._doHide = this._doHide.bind(this);
-    this._clearInput = this._clearInput.bind(this);
+    this._clearInputAndSearch = this._clearInputAndSearch.bind(this);
     this._onChangeText = this._onChangeText.bind(this);
     this._internalSearch = this._internalSearch.bind(this);
   }
 
   show() {
     const { animate, animationDuration } = this.props;
-    this.setState({ show: true });
-    this._clearInput();
+    this.setState({ show: true, input: '' });
     if (animate) {
       Animated.timing(
         this.state.top, {
@@ -106,12 +105,12 @@ export default class Search extends Component {
     if (onHide) {
       onHide(this.state.input);
     }
-    this.setState({ show: false });
-    this._clearInput();
+    this.setState({ show: false, input: '' });
   }
 
-  _clearInput() {
+  _clearInputAndSearch() {
     this.setState({ input: '' });
+    this._onChangeText(input);
   }
 
   _onChangeText(input) {
@@ -186,8 +185,8 @@ export default class Search extends Component {
                 returnKeyType='search'
               />
             {
-              !hideX &&
-              <TouchableOpacity onPress={this._clearInput}>
+              !hideX && this.state.input !== '' &&
+              <TouchableOpacity onPress={this._clearInputAndSearch}>
                   <Icon name='close' size={28} style={[styles.icon, { color: iconColor }]}/>
               </TouchableOpacity>
             }
