@@ -55,7 +55,7 @@ Works on both iOS and Android.
 
 ##### Notes for Android
 
-- Render the search bar component after the component it is supposed to display over. iOS handles this nicely with a `zIndex` of `10`.
+- Render the search bar component after the component it is supposed to display over. iOS handles this nicely with a `zIndex` of `10`. Android elevation is set to 2.
 - The bottom of the search bar will have a thin border instead of a shadow.
 
 
