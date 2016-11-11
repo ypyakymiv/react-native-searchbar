@@ -34,6 +34,7 @@ export default class Search extends Component {
     showOnLoad: PropTypes.bool,
     hideBack: PropTypes.bool,
     hideX: PropTypes.bool,
+    iOSPadding: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -49,6 +50,7 @@ export default class Search extends Component {
     showOnLoad: false,
     hideBack: false,
     hideX: false,
+    iOSPadding: true,
   }
 
   constructor(props) {
@@ -128,7 +130,6 @@ export default class Search extends Component {
         if (handleResults) {
           handleResults(results);
         }
-        console.log(results);
       }, 500)();
     }
   }
@@ -153,13 +154,13 @@ export default class Search extends Component {
   }
 
   render() {
-    const { placeholder, heightAdjust, backgroundColor, iconColor, textColor, placeholderTextColor, onBack, hideBack, hideX } = this.props;
+    const { placeholder, heightAdjust, backgroundColor, iconColor, textColor, placeholderTextColor, onBack, hideBack, hideX, iOSPadding } = this.props;
     return (
       <Animated.View style={[styles.container, { top: this.state.top }]}>
         {
           this.state.show &&
           <View style={[styles.navWrapper, { backgroundColor }]} >
-            { Platform.OS === 'ios' && <View style={{ height: 20 }} /> }
+            {  Platform.OS === 'ios' && iOSPadding&& <View style={{ height: 20 }} /> }
             <View style={[styles.nav, { height: (Platform.OS === 'ios' ? 52 : 62) + heightAdjust }]}>
               {
                 !hideBack &&
