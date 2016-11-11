@@ -187,7 +187,7 @@ export default class Search extends Component {
                 underlineColorAndroid='transparent'
                 returnKeyType='search'
               />
-              <TouchableOpacity onPress={this._clearInputAndSearch}>
+            <TouchableOpacity onPress={hideX || this.state.input == '' ? null : this._clearInputAndSearch}>
                   <Icon name={'close'} size={28} style={[styles.icon, { color: hideX || this.state.input == '' ? backgroundColor : iconColor }]}/>
               </TouchableOpacity>
             </View>
