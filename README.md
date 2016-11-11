@@ -1,6 +1,6 @@
 # react-native-searchbar
 
-A pretty awesome search bar for React Native. It has a built in simple search capability which can be utilised by handing the component a `data` and providing a `handleResults` function which will receive the filtered copy of the `data` array.
+A pretty awesome search bar for React Native. It has a built in simple search capability which can be utilised by handing the component `data` and providing a `handleResults` function which will receive the filtered copy of the `data` array.
 
 The search function uses a depth-first algorithm to traverse the data and simply looks for an `indexOf` the user input within all strings, numbers, and boolean values in the data.
 
