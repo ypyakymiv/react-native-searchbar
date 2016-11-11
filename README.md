@@ -39,6 +39,8 @@ Works on both iOS and Android.
 	showOnLoad | boolean | `false` | Show the search bar when it is first rendered.
 	hideBack | boolean | `false` | Hide the back button.
 	hideX | boolean | `false` | Hide the X icon which clears the input.
+	iOSPadding | boolean | `true` | Pad the size of the iOS status bar
+
 
 ## Usage
 
