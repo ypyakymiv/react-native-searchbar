@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     shadowRadius: 5,
     shadowOpacity: 0.7,
-    elevtation: 2,
+    elevation: 2,
   },
   navWrapper: {
     width: Dimensions.get('window').width,
