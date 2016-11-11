@@ -41,7 +41,7 @@ export default class SearchContainer extends Component {
             <View style={{ backgroundColor: 'red', height: 100 }}/>
           </TouchableOpacity>
         </View>
-        <Search
+        <SearchBar
           ref={(ref) => this.searchBar = ref}
           data={items}
           handleResults={this._handleResults}
