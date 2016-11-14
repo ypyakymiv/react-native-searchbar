@@ -40,8 +40,8 @@ Works on both iOS and Android.
 	hideBack | boolean | `false` | Hide the back button.
 	hideX | boolean | `false` | Hide the X icon which clears the input.
 	iOSPadding | boolean | `true` | Pad the size of the iOS status bar
-	clearOnShow | boolean | `false` | Clear input when the search bar is shown
-	clearOnShow | boolean | `true` | Clear input when the search bar is hidden
+	clearOnShow | boolean | `false` | Clear input when the search bar is shown (also runs a search with empty string)
+	clearOnHide | boolean | `true` | Clear input when the search bar is hidden (also runs a search with empty string)
 
 ## Usage
 
