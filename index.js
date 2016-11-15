@@ -69,15 +69,15 @@ export default class Search extends Component {
 
     this.hide = this.hide.bind(this);
     this._doHide = this._doHide.bind(this);
-    this._clearInputAndSearch = this._clearInputAndSearch.bind(this);
     this._onChangeText = this._onChangeText.bind(this);
     this._internalSearch = this._internalSearch.bind(this);
+    this._clearInput = this._clearInput.bind(this);
   }
 
   show() {
     const { animate, animationDuration, clearOnShow } = this.props;
     if (clearOnShow) {
-      this._clearInputAndSearch();
+      this.setState({ input: '' })
     }
     this.setState({ show: true });
     if (animate) {
@@ -114,13 +114,8 @@ export default class Search extends Component {
     const { clearOnHide } = this.props;
     this.setState({ show: false });
     if (clearOnHide) {
-      this._clearInputAndSearch();
+      this.setState({ input: '' });
     }
-  }
-
-  _clearInputAndSearch() {
-    this.setState({ input: '' });
-    this._onChangeText('');
   }
 
   _onChangeText(input) {
@@ -145,7 +140,7 @@ export default class Search extends Component {
 
   _internalSearch(input) {
     if (input === '') {
-      return this.state.data;
+      return [];
     }
     return filter(this.state.data, (item) => {
       return this._depthFirstSearch(item, input)
@@ -160,6 +155,11 @@ export default class Search extends Component {
       return includes(collection.toString().toLowerCase(), input.toString().toLowerCase());
     }
     return some(collection, (item) => this._depthFirstSearch(item, input));
+  }
+
+  _clearInput() {
+    this.setState({ input: '' });
+    this._onChangeText('');
   }
 
   render() {
@@ -197,7 +197,7 @@ export default class Search extends Component {
                 underlineColorAndroid='transparent'
                 returnKeyType='search'
               />
-            <TouchableOpacity onPress={hideX || this.state.input == '' ? null : this._clearInputAndSearch}>
+            <TouchableOpacity onPress={hideX || this.state.input === '' ? null : this._clearInput}>
                   <Icon name={'close'} size={28} style={[styles.icon, { color: hideX || this.state.input == '' ? backgroundColor : iconColor }]}/>
               </TouchableOpacity>
             </View>
