@@ -27,8 +27,6 @@ Works on both iOS and Android.
 	handleResults(results) | function | `null` | Fires after each internal search with the results array.
 	onHide(input) | function | `null` | Fires when the search bar is hidden with the current user input.
 	onBack | function | Hides the search bar | Fires when the back icon is pressed.
-	showBack | boolean | `true` | Show the back icon.
-	showX | boolean | `true` | Show the X icon which clears the input.
 	heightAdjust | number | `0` | Adjust the height of the search bar.
 	backgroundColor | string | `white` | The background colour of the search bar.
 	iconColor | string | `gray` | The color of the back and X icons.
