@@ -91,8 +91,10 @@ export default class Search extends Component {
   }
 
   hide() {
-    const { animate, animationDuration } = this.props;
-    this.setState({ show: false });
+    const { onHide, animate, animationDuration } = this.props;
+    if (onHide) {
+      onHide(this.state.input);
+    }
     if (animate) {
       Animated.timing(
         this.state.top, {
@@ -109,10 +111,7 @@ export default class Search extends Component {
   }
 
   _doHide() {
-    const { onHide, clearOnHide } = this.props;
-    if (onHide) {
-      onHide(this.state.input);
-    }
+    const { clearOnHide } = this.props;
     this.setState({ show: false });
     if (clearOnHide) {
       this._clearInputAndSearch();
