@@ -37,6 +37,7 @@ export default class Search extends Component {
     iOSPadding: PropTypes.bool,
     clearOnShow: PropTypes.bool,
     clearOnHide: PropTypes.bool,
+    focusOnLayout: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -55,6 +56,7 @@ export default class Search extends Component {
     iOSPadding: true,
     clearOnShow: false,
     clearOnHide: true,
+    focusOnLayout: true,
   }
 
   constructor(props) {
@@ -182,7 +184,7 @@ export default class Search extends Component {
               }
               <TextInput
                 ref={(ref) => this.textInput = ref}
-                onLayout={() => this.textInput.focus()}
+                onLayout={() => this.props.focusOnLayout && this.textInput.focus()}
                 style={[
                   styles.input,
                   {

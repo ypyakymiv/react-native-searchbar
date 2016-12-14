@@ -40,6 +40,7 @@ Works on both iOS and Android.
 	iOSPadding | boolean | `true` | Pad the size of the iOS status bar
 	clearOnShow | boolean | `false` | Clear input when the search bar is shown
 	clearOnHide | boolean | `true` | Clear input when the search bar is hidden
+	focusOnLayout | boolean | `true` | Focus the text input box whenever it is shown 
 
 ## Usage
 
