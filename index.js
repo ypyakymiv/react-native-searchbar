@@ -89,6 +89,8 @@ export default class Search extends Component {
             duration: animationDuration,
         }
       ).start();
+    } else {
+      this.setState({ top: new Animated.Value(0) })
     }
   }
 
@@ -108,6 +110,7 @@ export default class Search extends Component {
         this._doHide();
       }, animationDuration)
     } else {
+      this.setState({ top: new Animated.Value(INITIAL_TOP) })
       this._doHide()
     }
   }
@@ -171,15 +174,23 @@ export default class Search extends Component {
         {
           this.state.show &&
           <View style={[styles.navWrapper, { backgroundColor }]} >
-            {  Platform.OS === 'ios' && iOSPadding&& <View style={{ height: 20 }} /> }
+            {  Platform.OS === 'ios' && iOSPadding && <View style={{ height: 20 }} /> }
             <View style={[
-                styles.nav, { height: (Platform.OS === 'ios' ? 52 : 62) + heightAdjust },
+                styles.nav,
+                { height: (Platform.OS === 'ios' ? 52 : 62) + heightAdjust },
               ]}
             >
               {
                 !hideBack &&
                 <TouchableOpacity onPress={onBack || this.hide}>
-                  <Icon name='arrow-back' size={28} style={[styles.icon, { color: iconColor }]}/>
+                  <Icon
+                    name='arrow-back'
+                    size={28}
+                    style={{
+                      color: iconColor,
+                      padding: heightAdjust / 2 + 10
+                    }}
+                  />
                 </TouchableOpacity>
               }
               <TextInput
@@ -200,7 +211,14 @@ export default class Search extends Component {
                 returnKeyType='search'
               />
             <TouchableOpacity onPress={hideX || this.state.input === '' ? null : this._clearInput}>
-                  <Icon name={'close'} size={28} style={[styles.icon, { color: hideX || this.state.input == '' ? backgroundColor : iconColor }]}/>
+                  <Icon
+                    name={'close'}
+                    size={28}
+                    style={{
+                      color: hideX || this.state.input == '' ? backgroundColor : iconColor,
+                      padding: heightAdjust / 2 + 10
+                    }}
+                  />
               </TouchableOpacity>
             </View>
           </View>
@@ -241,8 +259,5 @@ const styles = StyleSheet.create({
     }),
     width: Dimensions.get('window').width - 120,
     fontSize: 20,
-  },
-  icon: {
-    padding: 10
   }
 });
