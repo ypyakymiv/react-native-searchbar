@@ -63,7 +63,6 @@ export default class Search extends Component {
     super(props);
     this.state = {
       input: '',
-      results: [],
       show: props.showOnLoad,
       top: new Animated.Value(props.showOnLoad ? 0 : INITIAL_TOP + props.heightAdjust),
     };
@@ -134,7 +133,6 @@ export default class Search extends Component {
       debounce(() => {
         // use internal search logic (depth first)!
         let results = this._internalSearch(input);
-        this.setState({ results });;
         if (handleResults) {
           handleResults(results);
         }
