@@ -132,8 +132,8 @@ export default class Search extends Component {
     } else {
       debounce(() => {
         // use internal search logic (depth first)!
-        let results = this._internalSearch(input);
         if (handleResults) {
+          const results = this._internalSearch(input);
           handleResults(results);
         }
       }, 500)();
