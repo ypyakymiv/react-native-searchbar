@@ -63,8 +63,6 @@ export default class Search extends Component {
     super(props);
     this.state = {
       input: '',
-      data: props.data,
-      results: [],
       show: props.showOnLoad,
       top: new Animated.Value(props.showOnLoad ? 0 : INITIAL_TOP + props.heightAdjust),
     };
@@ -134,9 +132,8 @@ export default class Search extends Component {
     } else {
       debounce(() => {
         // use internal search logic (depth first)!
-        let results = this._internalSearch(input);
-        this.setState({ results });;
         if (handleResults) {
+          const results = this._internalSearch(input);
           handleResults(results);
         }
       }, 500)();
@@ -147,7 +144,7 @@ export default class Search extends Component {
     if (input === '') {
       return [];
     }
-    return filter(this.state.data, (item) => {
+    return filter(this.props.data, (item) => {
       return this._depthFirstSearch(item, input)
     });
   }
