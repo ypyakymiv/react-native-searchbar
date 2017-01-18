@@ -22,6 +22,7 @@ export default class Search extends Component {
     handleChangeText: PropTypes.func,
     handleSearch: PropTypes.func,
     handleResults: PropTypes.func,
+    onSubmitEditing: PropTypes.func,
     onHide: PropTypes.func,
     onBack: PropTypes.func,
     heightAdjust: PropTypes.number,
@@ -72,6 +73,7 @@ export default class Search extends Component {
     this._onChangeText = this._onChangeText.bind(this);
     this._internalSearch = this._internalSearch.bind(this);
     this._clearInput = this._clearInput.bind(this);
+    this._onSubmitEditing = this._onSubmitEditing.bind(this);
   }
 
   show() {
@@ -140,6 +142,10 @@ export default class Search extends Component {
     }
   }
 
+  _onSubmitEditing() {
+    this.props.onSubmitEditing();
+  }
+
   _internalSearch(input) {
     if (input === '') {
       return [];
@@ -201,6 +207,7 @@ export default class Search extends Component {
                   }
                 ]}
                 onChangeText={(input) => this._onChangeText(input)}
+                onSubmitEditing={this._onSubmitEditing}
                 placeholder={placeholder}
                 placeholderTextColor={placeholderTextColor}
                 value={this.state.input}
