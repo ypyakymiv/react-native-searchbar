@@ -38,6 +38,7 @@ export default class Search extends Component {
     clearOnShow: PropTypes.bool,
     clearOnHide: PropTypes.bool,
     focusOnLayout: PropTypes.bool,
+    autoCorrect: PropTypes.bool
   }
 
   static defaultProps = {
@@ -57,6 +58,7 @@ export default class Search extends Component {
     clearOnShow: false,
     clearOnHide: true,
     focusOnLayout: true,
+    autoCorrect: true,
   }
 
   constructor(props) {
@@ -206,6 +208,7 @@ export default class Search extends Component {
                 value={this.state.input}
                 underlineColorAndroid='transparent'
                 returnKeyType='search'
+                autoCorrect={this.props.autoCorrect}
               />
             <TouchableOpacity onPress={hideX || this.state.input === '' ? null : this._clearInput}>
                   <Icon
