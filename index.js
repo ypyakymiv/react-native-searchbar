@@ -143,7 +143,10 @@ export default class Search extends Component {
   }
 
   _onSubmitEditing() {
-    this.props.onSubmitEditing();
+    const { onSubmitEditing } = this.props;
+    if (onSubmitEditing) {
+      onSubmitEditing();
+    }
   }
 
   _internalSearch(input) {
