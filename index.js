@@ -75,7 +75,6 @@ export default class Search extends Component {
     this._onChangeText = this._onChangeText.bind(this);
     this._internalSearch = this._internalSearch.bind(this);
     this._clearInput = this._clearInput.bind(this);
-    this._onSubmitEditing = this._onSubmitEditing.bind(this);
   }
 
   show() {
@@ -144,13 +143,6 @@ export default class Search extends Component {
     }
   }
 
-  _onSubmitEditing() {
-    const { onSubmitEditing } = this.props;
-    if (onSubmitEditing) {
-      onSubmitEditing();
-    }
-  }
-
   _internalSearch(input) {
     if (input === '') {
       return [];
@@ -176,7 +168,7 @@ export default class Search extends Component {
   }
 
   render() {
-    const { placeholder, heightAdjust, backgroundColor, iconColor, textColor, placeholderTextColor, onBack, hideBack, hideX, iOSPadding } = this.props;
+    const { placeholder, heightAdjust, backgroundColor, iconColor, textColor, placeholderTextColor, onBack, hideBack, hideX, iOSPadding, onSubmitEditing, focusOnLayout } = this.props;
     return (
       <Animated.View style={[styles.container, { top: this.state.top }]}>
         {
@@ -203,7 +195,7 @@ export default class Search extends Component {
               }
               <TextInput
                 ref={(ref) => this.textInput = ref}
-                onLayout={() => this.props.focusOnLayout && this.textInput.focus()}
+                onLayout={() => focusOnLayout && this.textInput.focus()}
                 style={[
                   styles.input,
                   {
@@ -212,7 +204,7 @@ export default class Search extends Component {
                   }
                 ]}
                 onChangeText={(input) => this._onChangeText(input)}
-                onSubmitEditing={this._onSubmitEditing}
+                onSubmitEditing={() => onSubmitEditing ? onSubmitEditing() : null}
                 placeholder={placeholder}
                 placeholderTextColor={placeholderTextColor}
                 value={this.state.input}

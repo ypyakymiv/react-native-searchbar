@@ -25,6 +25,7 @@ Works on both iOS and Android.
 	handleChangeText(input) | function | `null` | Fires when the input text changes.
 	handleSearch(input) | function | `null` | Fires after `handleChangeText`, and can be used to implement a custom search. If not present, the internal search logic will be used.
 	handleResults(results) | function | `null` | Fires after each internal search with the results array.
+	onSubmitEditing | function | `null` | Fired after pressing 'search' on the device keyboard
 	onHide(input) | function | `null` | Fires when the search bar is hidden with the current user input.
 	onBack | function | Hides the search bar | Fires when the back icon is pressed.
 	heightAdjust | number | `0` | Adjust the height of the search bar.
