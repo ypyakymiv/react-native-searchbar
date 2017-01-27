@@ -69,15 +69,9 @@ export default class Search extends Component {
       show: props.showOnLoad,
       top: new Animated.Value(props.showOnLoad ? 0 : INITIAL_TOP + props.heightAdjust),
     };
-
-    this.hide = this.hide.bind(this);
-    this._doHide = this._doHide.bind(this);
-    this._onChangeText = this._onChangeText.bind(this);
-    this._internalSearch = this._internalSearch.bind(this);
-    this._clearInput = this._clearInput.bind(this);
   }
 
-  show() {
+  show = () => {
     const { animate, animationDuration, clearOnShow } = this.props;
     if (clearOnShow) {
       this.setState({ input: '' })
@@ -95,7 +89,7 @@ export default class Search extends Component {
     }
   }
 
-  hide() {
+  hide = () => {
     const { onHide, animate, animationDuration } = this.props;
     if (onHide) {
       onHide(this.state.input);
@@ -116,7 +110,7 @@ export default class Search extends Component {
     }
   }
 
-  _doHide() {
+  _doHide = () => {
     const { clearOnHide } = this.props;
     this.setState({ show: false });
     if (clearOnHide) {
@@ -124,7 +118,7 @@ export default class Search extends Component {
     }
   }
 
-  _onChangeText(input) {
+  _onChangeText = (input) => {
     const { handleChangeText, handleSearch, handleResults } = this.props;
     this.setState({ input });
     if (handleChangeText) {
@@ -143,7 +137,7 @@ export default class Search extends Component {
     }
   }
 
-  _internalSearch(input) {
+  _internalSearch = (input) => {
     if (input === '') {
       return [];
     }
@@ -152,7 +146,7 @@ export default class Search extends Component {
     });
   }
 
-  _depthFirstSearch(collection, input) {
+  _depthFirstSearch = (collection, input) => {
     // let's get recursive boi
     let type = typeof collection;
     // base case(s)
@@ -162,13 +156,26 @@ export default class Search extends Component {
     return some(collection, (item) => this._depthFirstSearch(item, input));
   }
 
-  _clearInput() {
+  _clearInput = () => {
     this.setState({ input: '' });
     this._onChangeText('');
   }
 
-  render() {
-    const { placeholder, heightAdjust, backgroundColor, iconColor, textColor, placeholderTextColor, onBack, hideBack, hideX, iOSPadding, onSubmitEditing, focusOnLayout } = this.props;
+  render = () => {
+    const {
+      placeholder,
+      heightAdjust,
+      backgroundColor,
+      iconColor,
+      textColor,
+      placeholderTextColor,
+      onBack,
+      hideBack,
+      hideX,
+      iOSPadding,
+      onSubmitEditing,
+      focusOnLayout
+    } = this.props;
     return (
       <Animated.View style={[styles.container, { top: this.state.top }]}>
         {
