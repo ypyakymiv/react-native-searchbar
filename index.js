@@ -29,6 +29,7 @@ export default class Search extends Component {
     backgroundColor: PropTypes.string,
     iconColor: PropTypes.string,
     textColor: PropTypes.string,
+    fontFamily: PropTypes.string,
     placeholderTextColor: PropTypes.string,
     animate: PropTypes.bool,
     animationDuration: PropTypes.number,
@@ -49,6 +50,7 @@ export default class Search extends Component {
     backgroundColor: 'white',
     iconColor: 'gray',
     textColor: 'gray',
+    fontFamily: 'System',
     placeholderTextColor: 'lightgray',
     animate: true,
     animationDuration: 200,
@@ -206,7 +208,7 @@ export default class Search extends Component {
                 style={[
                   styles.input,
                   {
-                    color: textColor, marginLeft: hideBack ? 30 : 0,
+                    color: textColor, fontFamily: this.props.fontFamily, marginLeft: hideBack ? 30 : 0,
                     marginTop: (Platform.OS === 'ios' ? heightAdjust / 2 + 10 : 0)
                   }
                 ]}
