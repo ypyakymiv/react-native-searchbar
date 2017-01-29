@@ -40,7 +40,8 @@ export default class Search extends Component {
     clearOnShow: PropTypes.bool,
     clearOnHide: PropTypes.bool,
     focusOnLayout: PropTypes.bool,
-    autoCorrect: PropTypes.bool
+    autoCorrect: PropTypes.bool,
+    autoCapitalize: PropTypes.string
   }
 
   static defaultProps = {
@@ -62,6 +63,7 @@ export default class Search extends Component {
     clearOnHide: true,
     focusOnLayout: true,
     autoCorrect: true,
+    autoCapitalize: 'none'
   }
 
   constructor(props) {
@@ -176,7 +178,9 @@ export default class Search extends Component {
       hideX,
       iOSPadding,
       onSubmitEditing,
-      focusOnLayout
+      focusOnLayout,
+      autoCorrect,
+      autoCapitalize
     } = this.props;
     return (
       <Animated.View style={[styles.container, { top: this.state.top }]}>
@@ -220,6 +224,7 @@ export default class Search extends Component {
                 underlineColorAndroid='transparent'
                 returnKeyType='search'
                 autoCorrect={this.props.autoCorrect}
+                autoCapitalize={this.props.autoCapitalize}
               />
             <TouchableOpacity onPress={hideX || this.state.input === '' ? null : this._clearInput}>
                   <Icon
