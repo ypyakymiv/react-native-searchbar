@@ -42,7 +42,7 @@ export default class Search extends Component {
     autoCorrect: PropTypes.bool,
     autoCapitalize: PropTypes.string,
     fontFamily: PropTypes.string,
-    filterSearch: PropTypes.string,
+    filterSearch: PropTypes.bool,
   }
 
   static defaultProps = {
