@@ -42,7 +42,7 @@ export default class Search extends Component {
     autoCorrect: PropTypes.bool,
     autoCapitalize: PropTypes.string,
     fontFamily: PropTypes.string,
-    filterSearch: PropTypes.bool,
+    allDataOnEmptySearch: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -65,7 +65,7 @@ export default class Search extends Component {
     autoCorrect: true,
     autoCapitalize: 'sentences',
     fontFamily: 'System',
-    filterSearch: false
+    allDataOnEmptySearch: false
   }
 
   constructor(props) {
@@ -144,9 +144,9 @@ export default class Search extends Component {
   }
 
   _internalSearch = (input) => {
-    const { data, filterSearch } = this.props;
+    const { data, allDataOnEmptySearch } = this.props;
     if (input === '') {
-      return filterSearch ? data : [];
+      return allDataOnEmptySearch ? data : [];
     }
     return filter(data, (item) => {
       return this._depthFirstSearch(item, input)
