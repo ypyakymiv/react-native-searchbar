@@ -41,7 +41,8 @@ export default class Search extends Component {
     focusOnLayout: PropTypes.bool,
     autoCorrect: PropTypes.bool,
     autoCapitalize: PropTypes.string,
-    fontFamily: PropTypes.string
+    fontFamily: PropTypes.string,
+    filterSearch: PropTypes.string,
   }
 
   static defaultProps = {
@@ -63,7 +64,8 @@ export default class Search extends Component {
     focusOnLayout: true,
     autoCorrect: true,
     autoCapitalize: 'sentences',
-    fontFamily: 'System'
+    fontFamily: 'System',
+    filterSearch: false
   }
 
   constructor(props) {
@@ -142,10 +144,11 @@ export default class Search extends Component {
   }
 
   _internalSearch = (input) => {
+    const { data, filterSearch } = this.props;
     if (input === '') {
-      return [];
+      return filterSearch ? data : [];
     }
-    return filter(this.props.data, (item) => {
+    return filter(data, (item) => {
       return this._depthFirstSearch(item, input)
     });
   }

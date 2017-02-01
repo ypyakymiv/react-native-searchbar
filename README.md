@@ -39,10 +39,15 @@ Works on both iOS and Android.
 	hideBack | boolean | `false` | Hide the back button.
 	hideX | boolean | `false` | Hide the X icon which clears the input.
 	iOSPadding | boolean | `true` | Pad the size of the iOS status bar
-	clearOnShow | boolean | `false` | Clear input when the search bar is shown
-	clearOnHide | boolean | `true` | Clear input when the search bar is hidden
-	focusOnLayout | boolean | `true` | Focus the text input box whenever it is shown
+	clearOnShow | boolean | `false` | Clear input when the search bar is shown.
+	clearOnHide | boolean | `true` | Clear input when the search bar is hidden.
+	focusOnLayout | boolean | `true` | Focus the text input box whenever it is shown.
 	autoCorrect | boolean | `true` | AutoCorrect the search bar text.
+	autoCapitalize | string | `sentences` | AutoCapitialize behaviour of the text input - enum('none', 'sentences', 'words', 'characters')
+	fontFamily | string | `System` | The font family to be used by search bar
+	filterSearch | boolean | `false` | Search results behave as a `.filter`, returning all results when the input is an empty string and/or on a clear.
+
+
 
 ## Usage
 
