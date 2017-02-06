@@ -69,7 +69,7 @@ export default class Search extends Component {
     autoCapitalize: 'sentences',
     fontFamily: 'System',
     allDataOnEmptySearch: false,
-    backCloseSize: 20
+    backCloseSize: 28
   }
 
   constructor(props) {
