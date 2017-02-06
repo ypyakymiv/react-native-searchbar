@@ -31,7 +31,7 @@ Works on both iOS and Android.
 	onBack | function | Hides the search bar | Fires when the back icon is pressed.
     backButton | Component | MaterialIcon | Sets the back button component.
     closeButton | Component | MaterialIcon | Sets the close button component.
-    backCloseSize | number | 20 | Sets the size of back button & close button.
+    backCloseSize | number | 28 | Sets the size of back button & close button.
 	heightAdjust | number | `0` | Adjust the height of the search bar.
 	backgroundColor | string | `white` | The background colour of the search bar.
 	iconColor | string | `gray` | The color of the back and X icons.
