@@ -88,7 +88,7 @@ export default class Search extends Component {
   show = () => {
     const { animate, animationDuration, clearOnShow } = this.props;
     if (clearOnShow) {
-      this.setState({ input: '' })
+      this.setState({ input: '' });
     }
     this.setState({ show: true });
     if (animate) {
@@ -99,7 +99,7 @@ export default class Search extends Component {
         }
       ).start();
     } else {
-      this.setState({ top: new Animated.Value(0) })
+      this.setState({ top: new Animated.Value(0) });
     }
   }
 
@@ -117,7 +117,7 @@ export default class Search extends Component {
       ).start();
       setTimeout(() => {
         this._doHide();
-      }, animationDuration)
+      }, animationDuration);
     } else {
       this.setState({ top: new Animated.Value(INITIAL_TOP) })
       this._doHide()
@@ -157,7 +157,7 @@ export default class Search extends Component {
       return allDataOnEmptySearch ? data : [];
     }
     return filter(data, (item) => {
-      return this._depthFirstSearch(item, input)
+      return this._depthFirstSearch(item, input);
     });
   }
 
@@ -200,69 +200,72 @@ export default class Search extends Component {
     return (
       <Animated.View style={[styles.container, { top: this.state.top }]}>
         {
-          this.state.show &&
-          <View style={[styles.navWrapper, { backgroundColor }]} >
-            {  Platform.OS === 'ios' && iOSPadding && <View style={{ height: 20 }} /> }
-            <View style={[
-                styles.nav,
-                { height: (Platform.OS === 'ios' ? 52 : 62) + heightAdjust },
-              ]}
-            >
+        this.state.show &&
+        <View style={[styles.navWrapper, { backgroundColor }]} >
+          {
+            Platform.OS === 'ios' && iOSPadding &&
+            <View style={{ height: 20 }} />
+          }
+          <View style={[
+              styles.nav,
+              { height: (Platform.OS === 'ios' ? 52 : 62) + heightAdjust },
+            ]}
+          >
+          {
+            !hideBack &&
+            <TouchableOpacity onPress={onBack || this.hide}>
               {
-                !hideBack &&
-                <TouchableOpacity onPress={onBack || this.hide}>
-                  {
-                  backButton ?
-                  <View style={{width: backCloseSize, height: backCloseSize}} >{backButton}</View>
-                  :
-                  <Icon
-                    name='arrow-back'
-                    size={backCloseSize}
-                    style={{
-                      color: iconColor,
-                      padding: heightAdjust / 2 + 10
-                    }}
-                  />
-                  }
-                </TouchableOpacity>
-              }
-              <TextInput
-                ref={(ref) => this.textInput = ref}
-                onLayout={() => focusOnLayout && this.textInput.focus()}
-                style={[
-                  styles.input,
-                  {
-                    color: textColor, fontFamily: fontFamily, marginLeft: hideBack ? 30 : 0,
-                    marginTop: (Platform.OS === 'ios' ? heightAdjust / 2 + 10 : 0)
-                  }
-                ]}
-                onChangeText={(input) => this._onChangeText(input)}
-                onSubmitEditing={() => onSubmitEditing ? onSubmitEditing() : null}
-                placeholder={placeholder}
-                placeholderTextColor={placeholderTextColor}
-                value={this.state.input}
-                underlineColorAndroid='transparent'
-                returnKeyType='search'
-                autoCorrect={autoCorrect}
-                autoCapitalize={autoCapitalize}
+              backButton ?
+              <View style={{width: backCloseSize, height: backCloseSize}} >{backButton}</View>
+              :
+              <Icon
+                name='arrow-back'
+                size={backCloseSize}
+                style={{
+                  color: iconColor,
+                  padding: heightAdjust / 2 + 10
+                }}
               />
-            <TouchableOpacity onPress={hideX || this.state.input === '' ? null : this._clearInput}>
+              }
+            </TouchableOpacity>
+          }
+            <TextInput
+              ref={(ref) => this.textInput = ref}
+              onLayout={() => focusOnLayout && this.textInput.focus()}
+              style={[
+                styles.input,
                 {
-                closeButton ?
-                  <View style={{width: backCloseSize, height: backCloseSize}} >{closeButton}</View>
-                  :
-                  <Icon
-                    name={'close'}
-                    size={backCloseSize}
-                    style={{
-                      color: hideX || this.state.input == '' ? backgroundColor : iconColor,
-                      padding: heightAdjust / 2 + 10
-                    }}
-                  />
+                  color: textColor, fontFamily: fontFamily, marginLeft: hideBack ? 30 : 0,
+                  marginTop: (Platform.OS === 'ios' ? heightAdjust / 2 + 10 : 0)
                 }
-              </TouchableOpacity>
-            </View>
+              ]}
+              onChangeText={(input) => this._onChangeText(input)}
+              onSubmitEditing={() => onSubmitEditing ? onSubmitEditing() : null}
+              placeholder={placeholder}
+              placeholderTextColor={placeholderTextColor}
+              value={this.state.input}
+              underlineColorAndroid='transparent'
+              returnKeyType='search'
+              autoCorrect={autoCorrect}
+              autoCapitalize={autoCapitalize}
+            />
+            <TouchableOpacity onPress={hideX || this.state.input === '' ? null : this._clearInput}>
+              {
+              closeButton ?
+              <View style={{width: backCloseSize, height: backCloseSize}} >{closeButton}</View>
+              :
+              <Icon
+                name={'close'}
+                size={backCloseSize}
+                style={{
+                  color: hideX || this.state.input == '' ? backgroundColor : iconColor,
+                  padding: heightAdjust / 2 + 10
+                }}
+              />
+              }
+            </TouchableOpacity>
           </View>
+        </View>
         }
       </Animated.View>
     );
