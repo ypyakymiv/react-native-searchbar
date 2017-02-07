@@ -25,6 +25,9 @@ export default class Search extends Component {
     onSubmitEditing: PropTypes.func,
     onHide: PropTypes.func,
     onBack: PropTypes.func,
+    backButton: PropTypes.object,
+    closeButton: PropTypes.object,
+    backCloseSize: PropTypes.number,
     heightAdjust: PropTypes.number,
     backgroundColor: PropTypes.string,
     iconColor: PropTypes.string,
@@ -65,7 +68,8 @@ export default class Search extends Component {
     autoCorrect: true,
     autoCapitalize: 'sentences',
     fontFamily: 'System',
-    allDataOnEmptySearch: false
+    allDataOnEmptySearch: false,
+    backCloseSize: 28
   }
 
   constructor(props) {
@@ -75,6 +79,10 @@ export default class Search extends Component {
       show: props.showOnLoad,
       top: new Animated.Value(props.showOnLoad ? 0 : INITIAL_TOP + props.heightAdjust),
     };
+  }
+
+  getValue = () => {
+    return this.state.input;
   }
 
   show = () => {
@@ -184,7 +192,10 @@ export default class Search extends Component {
       focusOnLayout,
       autoCorrect,
       autoCapitalize,
-      fontFamily
+      fontFamily,
+      backButton,
+      closeButton,
+      backCloseSize
     } = this.props;
     return (
       <Animated.View style={[styles.container, { top: this.state.top }]}>
@@ -200,14 +211,19 @@ export default class Search extends Component {
               {
                 !hideBack &&
                 <TouchableOpacity onPress={onBack || this.hide}>
+                  {
+                  backButton ?
+                  <View style={{width: backCloseSize, height: backCloseSize}} >{backButton}</View>
+                  :
                   <Icon
                     name='arrow-back'
-                    size={28}
+                    size={backCloseSize}
                     style={{
                       color: iconColor,
                       padding: heightAdjust / 2 + 10
                     }}
                   />
+                  }
                 </TouchableOpacity>
               }
               <TextInput
@@ -231,14 +247,19 @@ export default class Search extends Component {
                 autoCapitalize={autoCapitalize}
               />
             <TouchableOpacity onPress={hideX || this.state.input === '' ? null : this._clearInput}>
+                {
+                closeButton ?
+                  <View style={{width: backCloseSize, height: backCloseSize}} >{closeButton}</View>
+                  :
                   <Icon
                     name={'close'}
-                    size={28}
+                    size={backCloseSize}
                     style={{
                       color: hideX || this.state.input == '' ? backgroundColor : iconColor,
                       padding: heightAdjust / 2 + 10
                     }}
                   />
+                }
               </TouchableOpacity>
             </View>
           </View>
