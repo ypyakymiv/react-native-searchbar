@@ -23,10 +23,13 @@ export default class Search extends Component {
     handleSearch: PropTypes.func,
     handleResults: PropTypes.func,
     onSubmitEditing: PropTypes.func,
+    onFocus: PropTypes.func,
     onHide: PropTypes.func,
     onBack: PropTypes.func,
     backButton: PropTypes.object,
+    backButtonAccessibilityLabel: PropTypes.string,
     closeButton: PropTypes.object,
+    closeButtonAccessibilityLabel: PropTypes.string,
     backCloseSize: PropTypes.number,
     heightAdjust: PropTypes.number,
     backgroundColor: PropTypes.string,
@@ -189,12 +192,15 @@ export default class Search extends Component {
       hideX,
       iOSPadding,
       onSubmitEditing,
+      onFocus,
       focusOnLayout,
       autoCorrect,
       autoCapitalize,
       fontFamily,
       backButton,
+      backButtonAccessibilityLabel,
       closeButton,
+      closeButtonAccessibilityLabel,
       backCloseSize
     } = this.props;
     return (
@@ -213,7 +219,11 @@ export default class Search extends Component {
           >
           {
             !hideBack &&
-            <TouchableOpacity onPress={onBack || this.hide}>
+            <TouchableOpacity
+              accessible={true}
+              accessibilityComponentType="button"
+              accessibilityLabel={backButtonAccessibilityLabel ? backButtonAccessibilityLabel : "Navigate Up"}
+              onPress={onBack || this.hide}>
               {
               backButton ?
               <View style={{width: backCloseSize, height: backCloseSize}} >{backButton}</View>
@@ -241,6 +251,7 @@ export default class Search extends Component {
               ]}
               onChangeText={(input) => this._onChangeText(input)}
               onSubmitEditing={() => onSubmitEditing ? onSubmitEditing() : null}
+              onFocus={() => onFocus ? onFocus() : null}
               placeholder={placeholder}
               placeholderTextColor={placeholderTextColor}
               value={this.state.input}
@@ -249,7 +260,11 @@ export default class Search extends Component {
               autoCorrect={autoCorrect}
               autoCapitalize={autoCapitalize}
             />
-            <TouchableOpacity onPress={hideX || this.state.input === '' ? null : this._clearInput}>
+            <TouchableOpacity
+              accessible={true}
+              accessibilityComponentType="button"
+              accessibilityLabel={closeButtonAccessibilityLabel ? closeButtonAccessibilityLabel : "Clear Search Text"}
+              onPress={hideX || this.state.input === '' ? null : this._clearInput}>
               {
               closeButton ?
               <View style={{width: backCloseSize, height: backCloseSize}} >{closeButton}</View>
