@@ -54,6 +54,8 @@ export default class Search extends Component {
   static defaultProps = {
     data: [],
     placeholder: 'Search',
+    backButtonAccessibilityLabel: 'Navigate up',
+    closeButtonAccessibilityLabel: 'Clear search text',
     heightAdjust: 0,
     backgroundColor: 'white',
     iconColor: 'gray',
@@ -222,7 +224,7 @@ export default class Search extends Component {
             <TouchableOpacity
               accessible={true}
               accessibilityComponentType="button"
-              accessibilityLabel={backButtonAccessibilityLabel ? backButtonAccessibilityLabel : "Navigate Up"}
+              accessibilityLabel={backButtonAccessibilityLabel}
               onPress={onBack || this.hide}>
               {
               backButton ?
@@ -263,7 +265,7 @@ export default class Search extends Component {
             <TouchableOpacity
               accessible={true}
               accessibilityComponentType="button"
-              accessibilityLabel={closeButtonAccessibilityLabel ? closeButtonAccessibilityLabel : "Clear Search Text"}
+              accessibilityLabel={closeButtonAccessibilityLabel}
               onPress={hideX || this.state.input === '' ? null : this._clearInput}>
               {
               closeButton ?
