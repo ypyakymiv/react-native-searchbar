@@ -96,7 +96,7 @@ export default class Search extends Component {
   if (initial === 'PORTRAIT') {
     this.setState({ width: Dimensions.get('window').width});
   } else {
-    this.setState({ width: Dimensions.get('window').width, landscape: true });
+    this.setState({ width: Dimensions.get('window').width });
   }
 }
 
@@ -108,7 +108,7 @@ orientationDidChange = (orientation) => {
   if (orientation === 'PORTRAIT') {
     this.setState({ width: Dimensions.get('window').width});
   } else {
-    this.setState({ width: Dimensions.get('window').width, landscape: true });
+    this.setState({ width: Dimensions.get('window').width });
   }
 }
 
@@ -228,7 +228,7 @@ orientationDidChange = (orientation) => {
       closeButtonAccessibilityLabel,
       backCloseSize
     } = this.props;
-    const { width, landscape } = this.state;
+    const { width } = this.state;
     return (
       <Animated.View style={[styles.container, { top: this.state.top }]}>
         {
