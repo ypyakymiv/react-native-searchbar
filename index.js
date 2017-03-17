@@ -23,8 +23,15 @@ export default class Search extends Component {
     handleChangeText: PropTypes.func,
     handleSearch: PropTypes.func,
     handleResults: PropTypes.func,
+    onSubmitEditing: PropTypes.func,
+    onFocus: PropTypes.func,
     onHide: PropTypes.func,
     onBack: PropTypes.func,
+    backButton: PropTypes.object,
+    backButtonAccessibilityLabel: PropTypes.string,
+    closeButton: PropTypes.object,
+    closeButtonAccessibilityLabel: PropTypes.string,
+    backCloseSize: PropTypes.number,
     heightAdjust: PropTypes.number,
     backgroundColor: PropTypes.string,
     iconColor: PropTypes.string,
@@ -39,11 +46,17 @@ export default class Search extends Component {
     clearOnShow: PropTypes.bool,
     clearOnHide: PropTypes.bool,
     focusOnLayout: PropTypes.bool,
+    autoCorrect: PropTypes.bool,
+    autoCapitalize: PropTypes.string,
+    fontFamily: PropTypes.string,
+    allDataOnEmptySearch: PropTypes.bool,
   }
 
   static defaultProps = {
     data: [],
     placeholder: 'Search',
+    backButtonAccessibilityLabel: 'Navigate up',
+    closeButtonAccessibilityLabel: 'Clear search text',
     heightAdjust: 0,
     backgroundColor: 'white',
     iconColor: 'gray',
@@ -58,6 +71,11 @@ export default class Search extends Component {
     clearOnShow: false,
     clearOnHide: true,
     focusOnLayout: true,
+    autoCorrect: true,
+    autoCapitalize: 'sentences',
+    fontFamily: 'System',
+    allDataOnEmptySearch: false,
+    backCloseSize: 28
   }
 
   constructor(props) {
@@ -67,12 +85,10 @@ export default class Search extends Component {
       show: props.showOnLoad,
       top: new Animated.Value(props.showOnLoad ? 0 : INITIAL_TOP + props.heightAdjust),
     };
+  }
 
-    this.hide = this.hide.bind(this);
-    this._doHide = this._doHide.bind(this);
-    this._onChangeText = this._onChangeText.bind(this);
-    this._internalSearch = this._internalSearch.bind(this);
-    this._clearInput = this._clearInput.bind(this);
+  getValue = () => {
+    return this.state.input;
   }
 
   componentWillMount = () => {
@@ -96,10 +112,11 @@ orientationDidChange = (orientation) => {
   }
 }
 
-  show() {
+
+  show = () => {
     const { animate, animationDuration, clearOnShow } = this.props;
     if (clearOnShow) {
-      this.setState({ input: '' })
+      this.setState({ input: '' });
     }
     this.setState({ show: true });
     if (animate) {
@@ -110,11 +127,11 @@ orientationDidChange = (orientation) => {
         }
       ).start();
     } else {
-      this.setState({ top: new Animated.Value(0) })
+      this.setState({ top: new Animated.Value(0) });
     }
   }
 
-  hide() {
+  hide = () => {
     const { onHide, animate, animationDuration } = this.props;
     if (onHide) {
       onHide(this.state.input);
@@ -128,14 +145,14 @@ orientationDidChange = (orientation) => {
       ).start();
       setTimeout(() => {
         this._doHide();
-      }, animationDuration)
+      }, animationDuration);
     } else {
       this.setState({ top: new Animated.Value(INITIAL_TOP) })
       this._doHide()
     }
   }
 
-  _doHide() {
+  _doHide = () => {
     const { clearOnHide } = this.props;
     this.setState({ show: false });
     if (clearOnHide) {
@@ -143,7 +160,7 @@ orientationDidChange = (orientation) => {
     }
   }
 
-  _onChangeText(input) {
+  _onChangeText = (input) => {
     const { handleChangeText, handleSearch, handleResults } = this.props;
     this.setState({ input });
     if (handleChangeText) {
@@ -162,16 +179,17 @@ orientationDidChange = (orientation) => {
     }
   }
 
-  _internalSearch(input) {
+  _internalSearch = (input) => {
+    const { data, allDataOnEmptySearch } = this.props;
     if (input === '') {
-      return [];
+      return allDataOnEmptySearch ? data : [];
     }
-    return filter(this.props.data, (item) => {
-      return this._depthFirstSearch(item, input)
+    return filter(data, (item) => {
+      return this._depthFirstSearch(item, input);
     });
   }
 
-  _depthFirstSearch(collection, input) {
+  _depthFirstSearch = (collection, input) => {
     // let's get recursive boi
     let type = typeof collection;
     // base case(s)
@@ -181,67 +199,114 @@ orientationDidChange = (orientation) => {
     return some(collection, (item) => this._depthFirstSearch(item, input));
   }
 
-  _clearInput() {
+  _clearInput = () => {
     this.setState({ input: '' });
     this._onChangeText('');
   }
 
-  render() {
-    const { placeholder, heightAdjust, backgroundColor, iconColor, textColor, placeholderTextColor, onBack, hideBack, hideX, iOSPadding } = this.props;
+  render = () => {
+    const {
+      placeholder,
+      heightAdjust,
+      backgroundColor,
+      iconColor,
+      textColor,
+      placeholderTextColor,
+      onBack,
+      hideBack,
+      hideX,
+      iOSPadding,
+      onSubmitEditing,
+      onFocus,
+      focusOnLayout,
+      autoCorrect,
+      autoCapitalize,
+      fontFamily,
+      backButton,
+      backButtonAccessibilityLabel,
+      closeButton,
+      closeButtonAccessibilityLabel,
+      backCloseSize
+    } = this.props;
     const { width, landscape } = this.state;
     return (
       <Animated.View style={[styles.container, { top: this.state.top }]}>
         {
-          this.state.show &&
-          <View style={{ backgroundColor, width }} >
-            {  Platform.OS === 'ios' && iOSPadding && <View style={{ height: 20 }} /> }
-            <View style={[
-                styles.nav,
-                { height: (Platform.OS === 'ios' ? 52 : 62) + heightAdjust },
-              ]}
-            >
+        this.state.show &&
+        <View style={{ backgroundColor, width }} >
+          {
+            Platform.OS === 'ios' && iOSPadding &&
+            <View style={{ height: 20 }} />
+          }
+          <View style={[
+              styles.nav,
+              { height: (Platform.OS === 'ios' ? 52 : 62) + heightAdjust },
+            ]}
+          >
+          {
+            !hideBack &&
+            <TouchableOpacity
+              accessible={true}
+              accessibilityComponentType="button"
+              accessibilityLabel={backButtonAccessibilityLabel}
+              onPress={onBack || this.hide}>
               {
-                !hideBack &&
-                <TouchableOpacity onPress={onBack || this.hide}>
-                  <Icon
-                    name='arrow-back'
-                    size={28}
-                    style={{
-                      color: iconColor,
-                      padding: heightAdjust / 2 + 10
-                    }}
-                  />
-                </TouchableOpacity>
-              }
-              <TextInput
-                ref={(ref) => this.textInput = ref}
-                onLayout={() => this.props.focusOnLayout && this.textInput.focus()}
-                style={[
-                  styles.input,
-                  {
-                    color: textColor, marginLeft: hideBack ? 30 : 0,
-                    marginTop: (Platform.OS === 'ios' ? heightAdjust / 2 + 10 : 0)
-                  }
-                ]}
-                onChangeText={(input) => this._onChangeText(input)}
-                placeholder={placeholder}
-                placeholderTextColor={placeholderTextColor}
-                value={this.state.input}
-                underlineColorAndroid='transparent'
-                returnKeyType='search'
+              backButton ?
+              <View style={{width: backCloseSize, height: backCloseSize}} >{backButton}</View>
+              :
+              <Icon
+                name='arrow-back'
+                size={backCloseSize}
+                style={{
+                  color: iconColor,
+                  padding: heightAdjust / 2 + 10
+                }}
               />
-            <TouchableOpacity onPress={hideX || this.state.input === '' ? null : this._clearInput}>
-                  <Icon
-                    name={'close'}
-                    size={28}
-                    style={{
-                      color: hideX || this.state.input == '' ? backgroundColor : iconColor,
-                      padding: heightAdjust / 2 + 10
-                    }}
-                  />
-              </TouchableOpacity>
-            </View>
+              }
+            </TouchableOpacity>
+          }
+            <TextInput
+              ref={(ref) => this.textInput = ref}
+              onLayout={() => focusOnLayout && this.textInput.focus()}
+              style={[
+                styles.input,
+                {
+                  color: textColor, fontFamily: fontFamily, marginLeft: hideBack ? 30 : 0,
+                  marginTop: (Platform.OS === 'ios' ? heightAdjust / 2 + 10 : 0)
+                }
+              ]}
+              onChangeText={(input) => this._onChangeText(input)}
+              onSubmitEditing={() => onSubmitEditing ? onSubmitEditing() : null}
+              onFocus={() => onFocus ? onFocus() : null}
+              placeholder={placeholder}
+              placeholderTextColor={placeholderTextColor}
+              value={this.state.input}
+              underlineColorAndroid='transparent'
+              returnKeyType='search'
+              autoCorrect={autoCorrect}
+              autoCapitalize={autoCapitalize}
+            />
+            <TouchableOpacity
+              accessible={true}
+              accessibilityComponentType="button"
+              accessibilityLabel={closeButtonAccessibilityLabel}
+              onPress={hideX || this.state.input === '' ? null : this._clearInput}>
+              {
+              closeButton ?
+              <View style={{width: backCloseSize, height: backCloseSize}} >{closeButton}</View>
+              :
+              <Icon
+                name={'close'}
+                size={backCloseSize}
+                style={{
+                  color: hideX || this.state.input == '' ? backgroundColor : iconColor,
+                  padding: heightAdjust / 2 + 10
+                }}
+              />
+              }
+            </TouchableOpacity>
           </View>
+        </View>
         }
       </Animated.View>
     );
@@ -265,6 +330,7 @@ const styles = StyleSheet.create({
         },
     }),
     flex: 1,
+    flexBasis: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
