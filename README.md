@@ -18,7 +18,7 @@ Works on both iOS and Android.
 
 ## Available Props
 
-  Property	|	Type		|	Default		|	Description |
+Property	|	Type		|	Default		|	Description |
   :---------|:--------|:----------|:------------|
 	data	|	array	|	`[]`	|	The array of data to be searched (if not using a custom search algorithm)
 	placeholder	|	string	|	`Search`	|	The placeholder for the search bar.
