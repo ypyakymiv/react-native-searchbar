@@ -77,11 +77,7 @@ export default class Search extends Component {
 
   componentWillMount = () => {
   var initial = Orientation.getInitialOrientation();
-  if (initial === 'PORTRAIT') {
-    this.setState({ width: Dimensions.get('window').width});
-  } else {
-    this.setState({ width: Dimensions.get('window').width, landscape: true });
-  }
+  this.orientationDidChange(initial);
 }
 
 componentDidMount = () => {
