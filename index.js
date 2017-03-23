@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { filter, some, includes } from 'lodash/collection';
+import Orientation from 'react-native-orientation';
 import { debounce } from 'lodash/function';
 
 const INITIAL_TOP = Platform.OS === 'ios' ? -80 : -60;
@@ -89,6 +90,24 @@ export default class Search extends Component {
   getValue = () => {
     return this.state.input;
   }
+
+  componentWillMount = () => {
+  var initial = Orientation.getInitialOrientation();
+  this.orientationDidChange(initial);
+}
+
+componentDidMount = () => {
+  Orientation.addOrientationListener(this.orientationDidChange);
+}
+
+orientationDidChange = (orientation) => {
+  if (orientation === 'PORTRAIT') {
+    this.setState({ width: Dimensions.get('window').width});
+  } else {
+    this.setState({ width: Dimensions.get('window').width });
+  }
+}
+
 
   show = () => {
     const { animate, animationDuration, clearOnShow } = this.props;
@@ -205,11 +224,12 @@ export default class Search extends Component {
       closeButtonAccessibilityLabel,
       backCloseSize
     } = this.props;
+    const { width } = this.state;
     return (
       <Animated.View style={[styles.container, { top: this.state.top }]}>
         {
         this.state.show &&
-        <View style={[styles.navWrapper, { backgroundColor }]} >
+        <View style={{ backgroundColor, width }} >
           {
             Platform.OS === 'ios' && iOSPadding &&
             <View style={{ height: 20 }} />
@@ -297,9 +317,6 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     shadowOpacity: 0.7,
     elevation: 2,
-  },
-  navWrapper: {
-    width: Dimensions.get('window').width,
   },
   nav: {
     ...Platform.select({
