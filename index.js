@@ -31,6 +31,7 @@ export default class Search extends Component {
     closeButton: PropTypes.object,
     closeButtonAccessibilityLabel: PropTypes.string,
     backCloseSize: PropTypes.number,
+    fontSize: PropTypes.number,
     heightAdjust: PropTypes.number,
     backgroundColor: PropTypes.string,
     iconColor: PropTypes.string,
@@ -74,7 +75,8 @@ export default class Search extends Component {
     autoCapitalize: 'sentences',
     fontFamily: 'System',
     allDataOnEmptySearch: false,
-    backCloseSize: 28
+    backCloseSize: 28,
+    fontSize: 20
   }
 
   constructor(props) {
@@ -203,7 +205,8 @@ export default class Search extends Component {
       backButtonAccessibilityLabel,
       closeButton,
       closeButtonAccessibilityLabel,
-      backCloseSize
+      backCloseSize,
+        fontSize
     } = this.props;
     return (
       <Animated.View style={[styles.container, { top: this.state.top }]}>
@@ -247,7 +250,7 @@ export default class Search extends Component {
               style={[
                 styles.input,
                 {
-                  color: textColor, fontFamily: fontFamily, marginLeft: hideBack ? 30 : 0,
+                  fontSize:fontSize, color: textColor, fontFamily: fontFamily, marginLeft: hideBack ? 30 : 0,
                   marginTop: (Platform.OS === 'ios' ? heightAdjust / 2 + 10 : 0)
                 }
               ]}

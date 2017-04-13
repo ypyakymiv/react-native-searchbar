@@ -35,6 +35,7 @@ backButtonAccessibilityLabel | string| `Navigate up` | Accessibility label for t
 closeButton | Component | MaterialIcon | Sets the close button component.
 closeButtonAccessibilityLabel | string | `Clear search text` | Accessibility label for the close button.
 backCloseSize | number | 28 | Sets the size of back button & close button.
+fontSize | number | 20 | Sets the font size.
 heightAdjust | number | `0` | Adjust the height of the search bar.
 backgroundColor | string | `white` | The background colour of the search bar.
 iconColor | string | `gray` | The color of the back and X icons.
