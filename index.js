@@ -26,6 +26,7 @@ export default class Search extends Component {
     onFocus: PropTypes.func,
     onHide: PropTypes.func,
     onBack: PropTypes.func,
+    onX: PropTypes.func,
     backButton: PropTypes.object,
     backButtonAccessibilityLabel: PropTypes.string,
     closeButton: PropTypes.object,
@@ -139,6 +140,17 @@ export default class Search extends Component {
     }
   }
 
+  _handleX = () => {
+    const { onX } = this.props;
+    this._clearInput()
+    if (onX) onX()
+  }
+
+  _clearInput = () => {
+    this.setState({ input: '' });
+    this._onChangeText('');
+  }
+
   _onChangeText = (input) => {
     const { handleChangeText, handleSearch, handleResults } = this.props;
     this.setState({ input });
@@ -176,11 +188,6 @@ export default class Search extends Component {
       return includes(collection.toString().toLowerCase(), input.toString().toLowerCase());
     }
     return some(collection, (item) => this._depthFirstSearch(item, input));
-  }
-
-  _clearInput = () => {
-    this.setState({ input: '' });
-    this._onChangeText('');
   }
 
   render = () => {
@@ -250,7 +257,8 @@ export default class Search extends Component {
               style={[
                 styles.input,
                 {
-                  fontSize:fontSize, color: textColor, fontFamily: fontFamily, marginLeft: hideBack ? 30 : 0,
+                  fontSize: fontSize, color: textColor, fontFamily: fontFamily,
+                  marginLeft: hideBack ? 30 : 0,
                   marginTop: (Platform.OS === 'ios' ? heightAdjust / 2 + 10 : 0)
                 }
               ]}
@@ -267,9 +275,9 @@ export default class Search extends Component {
             />
             <TouchableOpacity
               accessible={true}
-              accessibilityComponentType="button"
+              accessibilityComponentType='button'
               accessibilityLabel={closeButtonAccessibilityLabel}
-              onPress={hideX || this.state.input === '' ? null : this._clearInput}>
+              onPress={hideX || this.state.input === '' ? null : this._handleX}>
               {
               closeButton ?
               <View style={{width: backCloseSize, height: backCloseSize}} >{closeButton}</View>
@@ -323,6 +331,5 @@ const styles = StyleSheet.create({
         android: { height: 50 },
     }),
     width: Dimensions.get('window').width - 120,
-    fontSize: 20,
   }
 });

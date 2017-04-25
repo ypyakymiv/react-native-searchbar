@@ -29,13 +29,13 @@ onSubmitEditing | function | `null` | Fired after pressing 'search' on the devic
 getValue | function | `null` | Returns the current value of the search bar input.
 onHide(input) | function | `null` | Fires when the search bar is hidden with the current user input.
 onBack | function | Hides the search bar | Fires when the back icon is pressed.
+onX | function | `null` | Fires when the X button is pressed. Still clears the input.
 onFocus | function | `null` | Fires when the search bar receives focus.
 backButton | Component | MaterialIcon | Sets the back button component.
 backButtonAccessibilityLabel | string| `Navigate up` | Accessibility label for the back button.
 closeButton | Component | MaterialIcon | Sets the close button component.
 closeButtonAccessibilityLabel | string | `Clear search text` | Accessibility label for the close button.
 backCloseSize | number | 28 | Sets the size of back button & close button.
-fontSize | number | 20 | Sets the font size.
 heightAdjust | number | `0` | Adjust the height of the search bar.
 backgroundColor | string | `white` | The background colour of the search bar.
 iconColor | string | `gray` | The color of the back and X icons.
@@ -52,7 +52,8 @@ clearOnHide | boolean | `true` | Clear input when the search bar is hidden.
 focusOnLayout | boolean | `true` | Focus the text input box whenever it is shown.
 autoCorrect | boolean | `true` | AutoCorrect the search bar text.
 autoCapitalize | string | `sentences` | Auto capitialize behaviour of the text input - enum('none', 'sentences', 'words', 'characters')
-fontFamily | string | `System` | The font family to be used
+fontFamily | string | `System` | The font family to be used.
+fontSize | number | 20 | Sets the font size.
 allDataOnEmptySearch | boolean | `false` | Search results behave as a `.filter`, returning all data when the input is an empty string.
 
 
