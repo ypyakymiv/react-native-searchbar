@@ -40,6 +40,7 @@ heightAdjust | number | `0` | Adjust the height of the search bar.
 backgroundColor | string | `white` | The background colour of the search bar.
 iconColor | string | `gray` | The color of the back and X icons.
 textColor | string | `gray` | The color of the search bar text.
+selectionColor | string | `lightskyblue` | The color of the the search bar cursor and text selection.
 placeholderTextColor | string | `lightgray` | The color of the placeholder text.
 animate | boolean | `true` | Animate the search bar when it is shown and hidden.
 animationDuration | number | `200` | The duration of the above animation in milliseconds.

@@ -37,6 +37,7 @@ export default class Search extends Component {
     backgroundColor: PropTypes.string,
     iconColor: PropTypes.string,
     textColor: PropTypes.string,
+    selectionColor: PropTypes.string,
     placeholderTextColor: PropTypes.string,
     animate: PropTypes.bool,
     animationDuration: PropTypes.number,
@@ -63,6 +64,7 @@ export default class Search extends Component {
     backgroundColor: 'white',
     iconColor: 'gray',
     textColor: 'gray',
+    selectionColor: 'lightskyblue',
     placeholderTextColor: 'lightgray',
     animate: true,
     animationDuration: 200,
@@ -199,6 +201,7 @@ export default class Search extends Component {
       backgroundColor,
       iconColor,
       textColor,
+      selectionColor,
       placeholderTextColor,
       onBack,
       hideBack,
@@ -268,6 +271,7 @@ export default class Search extends Component {
                   marginTop: (Platform.OS === 'ios' ? heightAdjust / 2 + 10 : 0)
                 }
               ]}
+              selectionColor={selectionColor}
               onChangeText={(input) => this._onChangeText(input)}
               onSubmitEditing={() => onSubmitEditing ? onSubmitEditing() : null}
               onFocus={() => onFocus ? onFocus() : null}
