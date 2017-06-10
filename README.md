@@ -54,6 +54,7 @@ clearOnHide | boolean | `true` | Clear input when the search bar is hidden.
 focusOnLayout | boolean | `true` | Focus the text input box whenever it is shown.
 autoCorrect | boolean | `true` | AutoCorrect the search bar text.
 autoCapitalize | string | `sentences` | Auto capitialize behaviour of the text input - enum('none', 'sentences', 'words', 'characters')
+keyboardAppearance | string | 'default' | Determines the color of the keyboard.
 fontFamily | string | `System` | The font family to be used.
 fontSize | number | 20 | Sets the font size.
 allDataOnEmptySearch | boolean | `false` | Search results behave as a `.filter`, returning all data when the input is an empty string.
