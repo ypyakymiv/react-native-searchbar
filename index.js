@@ -24,6 +24,7 @@ export default class Search extends Component {
     handleResults: PropTypes.func,
     onSubmitEditing: PropTypes.func,
     onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
     onHide: PropTypes.func,
     onBack: PropTypes.func,
     onX: PropTypes.func,
@@ -211,6 +212,7 @@ export default class Search extends Component {
       iOSHideShadow,
       onSubmitEditing,
       onFocus,
+      onBlur,
       focusOnLayout,
       autoCorrect,
       autoCapitalize,
@@ -277,6 +279,7 @@ export default class Search extends Component {
               onChangeText={(input) => this._onChangeText(input)}
               onSubmitEditing={() => onSubmitEditing ? onSubmitEditing() : null}
               onFocus={() => onFocus ? onFocus() : null}
+              onBlur={() => onBlur ? onBlur() : null}
               placeholder={placeholder}
               placeholderTextColor={placeholderTextColor}
               value={this.state.input}
