@@ -154,9 +154,11 @@ export default class Search extends Component {
     if (onX) onX()
   }
 
-  _handleBlur () => {
+  _handleBlur = () => {
     const { onBlur, clearOnBlur } = this.props;
-    this.onBlur();
+    if (onBlur) {
+      onBlur();
+    }
     if (clearOnBlur) {
       this.setState({ input: '' });
     }
