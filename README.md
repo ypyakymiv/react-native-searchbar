@@ -32,6 +32,7 @@ onBack | function | Hides the search bar | Fires when the back icon is pressed.
 onX | function | `null` | Fires when the X button is pressed. Still clears the input.
 onFocus | function | `null` | Fires when the search bar receives focus.
 backButton | Component | MaterialIcon | Sets the back button component.
+backButtonIcon | string | `arrow-back` | Sets the back button icon.
 backButtonAccessibilityLabel | string| `Navigate up` | Accessibility label for the back button.
 closeButton | Component | MaterialIcon | Sets the close button component.
 closeButtonAccessibilityLabel | string | `Clear search text` | Accessibility label for the close button.

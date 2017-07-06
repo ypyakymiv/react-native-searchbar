@@ -28,6 +28,7 @@ export default class Search extends Component {
     onBack: PropTypes.func,
     onX: PropTypes.func,
     backButton: PropTypes.object,
+    backButtonIcon: PropTypes.string,
     backButtonAccessibilityLabel: PropTypes.string,
     closeButton: PropTypes.object,
     closeButtonAccessibilityLabel: PropTypes.string,
@@ -215,6 +216,7 @@ export default class Search extends Component {
       autoCapitalize,
       fontFamily,
       backButton,
+      backButtonIcon,
       backButtonAccessibilityLabel,
       closeButton,
       closeButtonAccessibilityLabel,
@@ -250,7 +252,7 @@ export default class Search extends Component {
               <View style={{width: backCloseSize, height: backCloseSize}} >{backButton}</View>
               :
               <Icon
-                name='arrow-back'
+                name={backButtonIcon || 'arrow-back'}
                 size={backCloseSize}
                 style={{
                   color: iconColor,
