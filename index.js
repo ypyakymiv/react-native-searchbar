@@ -50,6 +50,7 @@ export default class Search extends Component {
     iOSHideShadow: PropTypes.bool,
     clearOnShow: PropTypes.bool,
     clearOnHide: PropTypes.bool,
+    clearOnBlur: PropTypes.bool,
     focusOnLayout: PropTypes.bool,
     autoCorrect: PropTypes.bool,
     autoCapitalize: PropTypes.string,
@@ -77,6 +78,7 @@ export default class Search extends Component {
     iOSHideShadow: false,
     clearOnShow: false,
     clearOnHide: true,
+    clearOnBlur: false,
     focusOnLayout: true,
     autoCorrect: true,
     autoCapitalize: 'sentences',
@@ -152,6 +154,14 @@ export default class Search extends Component {
     if (onX) onX()
   }
 
+  _handleBlur () => {
+    const { onBlur, clearOnBlur } = this.props;
+    this.onBlur();
+    if (clearOnBlur) {
+      this.setState({ input: '' });
+    }
+  }
+
   _clearInput = () => {
     this.setState({ input: '' });
     this._onChangeText('');
@@ -212,7 +222,6 @@ export default class Search extends Component {
       iOSHideShadow,
       onSubmitEditing,
       onFocus,
-      onBlur,
       focusOnLayout,
       autoCorrect,
       autoCapitalize,
@@ -279,7 +288,7 @@ export default class Search extends Component {
               onChangeText={(input) => this._onChangeText(input)}
               onSubmitEditing={() => onSubmitEditing ? onSubmitEditing() : null}
               onFocus={() => onFocus ? onFocus() : null}
-              onBlur={() => onBlur ? onBlur() : null}
+              onBlur={this._handleBlur}
               placeholder={placeholder}
               placeholderTextColor={placeholderTextColor}
               value={this.state.input}

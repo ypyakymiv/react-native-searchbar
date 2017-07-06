@@ -53,6 +53,7 @@ iOSPadding | boolean | `true` | Pad the size of the iOS status bar.
 iOSHideShadow | boolean | `false` | Hide the shadow under the search bar in iOS.
 clearOnShow | boolean | `false` | Clear input when the search bar is shown.
 clearOnHide | boolean | `true` | Clear input when the search bar is hidden.
+clearOnBlur | boolean | `false` | Clear input when the search bar is blurred.
 focusOnLayout | boolean | `true` | Focus the text input box whenever it is shown.
 autoCorrect | boolean | `true` | AutoCorrect the search bar text.
 autoCapitalize | string | `sentences` | Auto capitialize behaviour of the text input - enum('none', 'sentences', 'words', 'characters')
