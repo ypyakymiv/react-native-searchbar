@@ -160,7 +160,7 @@ export default class Search extends Component {
       onBlur();
     }
     if (clearOnBlur) {
-      this.setState({ input: '' });
+      this._clearInput();
     }
   }
 
