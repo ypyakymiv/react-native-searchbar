@@ -24,6 +24,7 @@ export default class Search extends Component {
     handleResults: PropTypes.func,
     onSubmitEditing: PropTypes.func,
     onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
     onHide: PropTypes.func,
     onBack: PropTypes.func,
     onX: PropTypes.func,
@@ -48,6 +49,7 @@ export default class Search extends Component {
     iOSHideShadow: PropTypes.bool,
     clearOnShow: PropTypes.bool,
     clearOnHide: PropTypes.bool,
+    clearOnBlur: PropTypes.bool,
     focusOnLayout: PropTypes.bool,
     autoCorrect: PropTypes.bool,
     autoCapitalize: PropTypes.string,
@@ -75,6 +77,7 @@ export default class Search extends Component {
     iOSHideShadow: false,
     clearOnShow: false,
     clearOnHide: true,
+    clearOnBlur: false,
     focusOnLayout: true,
     autoCorrect: true,
     autoCapitalize: 'sentences',
@@ -148,6 +151,16 @@ export default class Search extends Component {
     const { onX } = this.props;
     this._clearInput()
     if (onX) onX()
+  }
+
+  _handleBlur = () => {
+    const { onBlur, clearOnBlur } = this.props;
+    if (onBlur) {
+      onBlur();
+    }
+    if (clearOnBlur) {
+      this._clearInput();
+    }
   }
 
   _clearInput = () => {
@@ -275,6 +288,7 @@ export default class Search extends Component {
               onChangeText={(input) => this._onChangeText(input)}
               onSubmitEditing={() => onSubmitEditing ? onSubmitEditing() : null}
               onFocus={() => onFocus ? onFocus() : null}
+              onBlur={this._handleBlur}
               placeholder={placeholder}
               placeholderTextColor={placeholderTextColor}
               value={this.state.input}

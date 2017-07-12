@@ -31,6 +31,7 @@ onHide(input) | function | `null` | Fires when the search bar is hidden with the
 onBack | function | Hides the search bar | Fires when the back icon is pressed.
 onX | function | `null` | Fires when the X button is pressed. Still clears the input.
 onFocus | function | `null` | Fires when the search bar receives focus.
+onBlur | function | `null` | Fires when the search bar loses focus.
 backButton | Component | MaterialIcon | Sets the back button component.
 backButtonAccessibilityLabel | string| `Navigate up` | Accessibility label for the back button.
 closeButton | Component | MaterialIcon | Sets the close button component.
@@ -51,6 +52,7 @@ iOSPadding | boolean | `true` | Pad the size of the iOS status bar.
 iOSHideShadow | boolean | `false` | Hide the shadow under the search bar in iOS.
 clearOnShow | boolean | `false` | Clear input when the search bar is shown.
 clearOnHide | boolean | `true` | Clear input when the search bar is hidden.
+clearOnBlur | boolean | `false` | Clear input when the search bar is blurred.
 focusOnLayout | boolean | `true` | Focus the text input box whenever it is shown.
 autoCorrect | boolean | `true` | AutoCorrect the search bar text.
 autoCapitalize | string | `sentences` | Auto capitialize behaviour of the text input - enum('none', 'sentences', 'words', 'characters')
