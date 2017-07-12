@@ -53,6 +53,7 @@ export default class Search extends Component {
     focusOnLayout: PropTypes.bool,
     autoCorrect: PropTypes.bool,
     autoCapitalize: PropTypes.string,
+    keyboardAppearance: PropTypes.string,
     fontFamily: PropTypes.string,
     allDataOnEmptySearch: PropTypes.bool,
   }
@@ -81,6 +82,7 @@ export default class Search extends Component {
     focusOnLayout: true,
     autoCorrect: true,
     autoCapitalize: 'sentences',
+    keyboardAppearance: 'default',
     fontFamily: 'System',
     allDataOnEmptySearch: false,
     backCloseSize: 28,
@@ -226,6 +228,7 @@ export default class Search extends Component {
       focusOnLayout,
       autoCorrect,
       autoCapitalize,
+      keyboardAppearance,
       fontFamily,
       backButton,
       backButtonAccessibilityLabel,
@@ -296,6 +299,7 @@ export default class Search extends Component {
               returnKeyType='search'
               autoCorrect={autoCorrect}
               autoCapitalize={autoCapitalize}
+              keyboardAppearance={keyboardAppearance}
             />
             <TouchableOpacity
               accessible={true}
