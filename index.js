@@ -132,8 +132,9 @@ export default class Search extends Component {
             duration: animationDuration,
         }
       ).start();
-      setTimeout(() => {
+      const timerId = setTimeout(() => {
         this._doHide();
+        clearTimeout(timerId)
       }, animationDuration);
     } else {
       this.setState({ top: new Animated.Value(INITIAL_TOP) })
