@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import {
   StyleSheet,
   Dimensions,
@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Animated,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { filter, some, includes } from 'lodash/collection';
 import { debounce } from 'lodash/function';
@@ -132,8 +133,9 @@ export default class Search extends Component {
             duration: animationDuration,
         }
       ).start();
-      setTimeout(() => {
+      const timerId = setTimeout(() => {
         this._doHide();
+        clearTimeout(timerId)
       }, animationDuration);
     } else {
       this.setState({ top: new Animated.Value(INITIAL_TOP) })
