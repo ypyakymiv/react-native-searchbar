@@ -15,7 +15,7 @@
   "scripts": {
     "fix": "npm run lint -- --fix && npm run prettier",
     "lint": "eslint index.js",
-    "prepublish": "npm run test",
+    "prepublishOnly": "npm run test",
     "prettier": "prettier --config .prettierrc --write 'index.js'",
     "prettier:diff": "prettier --config .prettierrc --list-different 'index.js'",
     "test": "npm run lint && npm run prettier:list-diff"
