@@ -13,7 +13,12 @@
   ],
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no tests specified\" && exit 1"
+    "fix": "npm run lint -- --fix && npm run prettier",
+    "lint": "eslint index.js",
+    "prepublish": "npm run test",
+    "prettier": "prettier --config .prettierrc --write 'index.js'",
+    "prettier:diff": "prettier --config .prettierrc --list-different 'index.js'",
+    "test": "npm run lint && npm run prettier:list-diff"
   },
   "author": {
     "name": "Dave Olsen",
@@ -34,6 +39,27 @@
     "react-native-vector-icons": "^3.0.0"
   },
   "devDependencies": {
+    "babel-eslint": "^8.0.1",
+    "eslint": "^4.8.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-react": "^7.4.0",
+    "eslint-plugin-react-native": "^3.1.0",
+    "prettier": "^1.7.4",
     "prop-types": "^15.5.10"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:react-native/all"
+    ],
+    "plugins": [
+      "prettier",
+      "react",
+      "react-native"
+    ],
+    "parser": "babel-eslint",
+    "rules": {
+      "react-native/no-inline-styles": 0
+    }
   }
 }
