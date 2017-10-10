@@ -126,3 +126,25 @@ _handleResults(results) {
 />
 ...
 ```
+
+## Contributing
+
+Contributing to `react-native-searchbar` is easy! With four simple steps:
+
+### Create a branch
+
+1. Fork the repository
+1. `git clone <your-repo-url>` to clone your GitHub repo to your local one
+1. `git pull origin master` to pull the latest code
+1. `npm install` to install the project's dependencies
+1. `git checkout -b the-name-of-my-branch` to create a branch (use something short and comprehensible, such as: `fix-styling-of-search-bar`).
+  
+### Make the change
+
+### Test the change
+1. Run `npm run fix` from the project root (This will run Prettier and ESLint and automatically fix any issues).
+1. If possible, test any visual changes in Android and iOS.
+
+### Push the change!
+1. `git add -A && git commit -m "My message"` (replacing `My message` with a commit message, such as `Fixed styling on search bar`) to stage and commit your changes
+1. `git push my-fork-name the-name-of-my-branch`
