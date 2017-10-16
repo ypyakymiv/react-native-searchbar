@@ -55,7 +55,8 @@ export default class Search extends Component {
     autoCapitalize: PropTypes.string,
     keyboardAppearance: PropTypes.string,
     fontFamily: PropTypes.string,
-    allDataOnEmptySearch: PropTypes.bool
+    allDataOnEmptySearch: PropTypes.bool,
+    editable: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -86,7 +87,8 @@ export default class Search extends Component {
     fontFamily: 'System',
     allDataOnEmptySearch: false,
     backCloseSize: 28,
-    fontSize: 20
+    fontSize: 20,
+    editable: true,
   };
 
   constructor(props) {
@@ -237,7 +239,8 @@ export default class Search extends Component {
       closeButton,
       closeButtonAccessibilityLabel,
       backCloseSize,
-      fontSize
+      fontSize,
+      editable,
     } = this.props;
     return (
       <Animated.View
@@ -307,6 +310,7 @@ export default class Search extends Component {
                 autoCorrect={autoCorrect}
                 autoCapitalize={autoCapitalize}
                 keyboardAppearance={keyboardAppearance}
+                editable={editable}
               />
               <TouchableOpacity
                 accessible={true}
