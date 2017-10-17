@@ -36,7 +36,7 @@
   "homepage": "https://github.com/localz/react-native-searchbar#readme",
   "dependencies": {
     "lodash": "^4.16.4",
-    "react-native-vector-icons": "^3.0.0"
+    "react-native-vector-icons": "^4.4.2"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.1",
