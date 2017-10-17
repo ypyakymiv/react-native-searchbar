@@ -56,7 +56,7 @@ export default class Search extends Component {
     keyboardAppearance: PropTypes.string,
     fontFamily: PropTypes.string,
     allDataOnEmptySearch: PropTypes.bool,
-    editable: PropTypes.bool,
+    editable: PropTypes.bool
   };
 
   static defaultProps = {
@@ -88,7 +88,7 @@ export default class Search extends Component {
     allDataOnEmptySearch: false,
     backCloseSize: 28,
     fontSize: 20,
-    editable: true,
+    editable: true
   };
 
   constructor(props) {
@@ -240,7 +240,7 @@ export default class Search extends Component {
       closeButtonAccessibilityLabel,
       backCloseSize,
       fontSize,
-      editable,
+      editable
     } = this.props;
     return (
       <Animated.View
