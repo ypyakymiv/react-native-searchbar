@@ -1,19 +1,46 @@
 /* eslint react-native/no-color-literals: 0 */
 
 import React from 'react'
-import { StyleSheet, Text, View, FlatList } from 'react-native'
+import { StyleSheet, Text, View, FlatList, Button } from 'react-native'
 
 import SearchBar from 'react-native-searchbar'
 
+import { SiliconValleyCharacters } from './data'
+
+/**
+ * The data has the following shape:
+ *
+ *  data = [
+ *    {
+ *      name: 'Richard Hendricks',
+ *      group: 'pied piper core'
+ *    },
+ *    ...
+ *  ]
+ */
+
+const ShowOnLoad = true
 export default class App extends React.Component {
   state = {
-    results: []
+    results: [],
+    searchBarActive: ShowOnLoad
   }
 
   handleResults = results => this.setState({ results })
 
+  handleButtonPress = () => {
+    const { searchBarActive } = this.state
+    if (searchBarActive) {
+      this.searchBar.hide()
+    } else {
+      this.searchBar.show()
+    }
+    this.setState({ searchBarActive: !searchBarActive })
+  }
+
   render() {
-    const { results } = this.state
+    const { results, searchBarActive } = this.state
+    const buttonText = searchBarActive ? 'Hide' : 'Show'
     return (
       <React.Fragment>
         <View style={Styles.container}>
@@ -21,12 +48,17 @@ export default class App extends React.Component {
             data={results}
             renderItem={item => <Text style={Styles.result}>{item}</Text>}
           />
+          <Button
+            title={buttonText}
+            color="white"
+            onPress={this.handleButtonPress}
+          />
         </View>
         <SearchBar
           ref={ref => (this.searchBar = ref)}
           data={SiliconValleyCharacters}
-          onResults={this.handleResults}
-          showOnLoad
+          handleResults={this.handleResults}
+          showOnLoad={ShowOnLoad}
         />
       </React.Fragment>
     )
@@ -38,81 +70,12 @@ const Styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white'
+    backgroundColor: 'black',
+    paddingBottom: 20
   },
   result: {
     fontSize: 28,
-    padding: 10
+    padding: 10,
+    color: 'white'
   }
 })
-
-const SiliconValleyCharacters = [
-  {
-    name: 'Richard Hendricks',
-    group: 'pied piper core'
-  },
-  {
-    name: 'Erlich Bachmann',
-    group: 'pied piper core'
-  },
-  {
-    name: 'Bertram Gilfoyle',
-    group: 'pied piper core'
-  },
-  {
-    name: 'Dinesh Chugtai',
-    group: 'pied piper core'
-  },
-  {
-    name: 'Jared Dunn',
-    group: 'pied piper core'
-  },
-  {
-    name: 'Jian Yang',
-    group: 'pied piper associate'
-  },
-  {
-    name: 'Peter Gregory',
-    group: 'pied piper associate'
-  },
-  {
-    name: 'Laurie Bream',
-    group: 'pied piper associate'
-  },
-  {
-    name: 'Monica Hall',
-    group: 'pied piper associate'
-  },
-  {
-    name: 'Carla Walton',
-    group: 'pied piper associate'
-  },
-  {
-    name: 'Russ Hanneman',
-    group: 'pied piper associate'
-  },
-  {
-    name: 'Jack Barker',
-    group: 'pied piper associate'
-  },
-  {
-    name: 'Gavin Belson',
-    group: 'hooli'
-  },
-  {
-    name: 'Big Head',
-    group: 'hooli'
-  },
-  {
-    name: 'Aly and Jason',
-    group: 'hooli'
-  },
-  {
-    name: 'Patrice',
-    group: 'hooli'
-  },
-  {
-    name: 'Hoover',
-    group: 'hooli'
-  }
-]
