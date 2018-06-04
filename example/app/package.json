@@ -7,7 +7,7 @@
     "test": "jest",
     "lint": "./node_modules/.bin/eslint ./",
     "fix": "npm run lint -- --fix",
-    "dev:reload": "rm -rf node_modules/react-native-searchbar && yarn"
+    "reinstall": "watchman watch-del-all && rm -rf node_modules/ && yarn && yarn --reset-cache"
   },
   "dependencies": {
     "react": "16.3.1",
