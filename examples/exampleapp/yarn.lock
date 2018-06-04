@@ -4441,7 +4441,7 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
-prettier@^1.12.1:
+prettier@1.12.1:
   version "1.12.1"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.12.1.tgz#c1ad20e803e7749faf905a409d2367e06bbe7325"
 
@@ -4542,12 +4542,9 @@ react-is@^16.3.1:
   version "16.3.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.3.2.tgz#f4d3d0e2f5fbb6ac46450641eb2e25bf05d36b22"
 
-react-native-searchbar@latest:
-  version "1.14.0"
-  resolved "https://registry.yarnpkg.com/react-native-searchbar/-/react-native-searchbar-1.14.0.tgz#043eed3e48b52c9d9ab417b58400d84dd07c6efc"
-  dependencies:
-    lodash "^4.16.4"
-    react-native-vector-icons "^4.4.2"
+"react-native-searchbar@link:../..":
+  version "0.0.0"
+  uid ""
 
 react-native-vector-icons@4.6.0, react-native-vector-icons@^4.4.2:
   version "4.6.0"
