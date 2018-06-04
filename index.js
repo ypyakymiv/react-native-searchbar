@@ -108,6 +108,10 @@ export default class Search extends Component {
     return this.state.input;
   };
 
+  setValue = (input) => {
+    return this.setState({input})
+  };
+
   show = () => {
     const { animate, animationDuration, clearOnShow } = this.props;
     if (clearOnShow) {

@@ -66,9 +66,10 @@ allDataOnEmptySearch | boolean | `false` | Search results behave as a `.filter`,
 
 ## Usage
 
-- Use a ref to show and hide the search bar `ref={(ref) => this.searchBar = ref}`
+- Use a ref to show and hide the search bar and set the text input value`ref={(ref) => this.searchBar = ref}`
 	- `this.searchBar.show()`
 	- `this.searchBar.hide()`
+	- `this.searchBar.setValue("text to set")`
 
 - Write your own search logic with `handleSearch` or provide some `data` and use the results handed back from `handleResults`.
 - Use your powers for good!
