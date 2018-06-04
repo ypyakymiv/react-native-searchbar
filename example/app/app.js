@@ -19,12 +19,14 @@ import { SiliconValleyCharacters } from './data'
  *  ]
  */
 
-const ShowOnLoad = true
+const ShowOnLoad = false
 export default class App extends React.Component {
   state = {
     results: [],
     searchBarActive: ShowOnLoad
   }
+
+  handleHide = () => this.setState({ searchBarActive: false })
 
   handleResults = results => this.setState({ results })
 
@@ -40,24 +42,31 @@ export default class App extends React.Component {
 
   render() {
     const { results, searchBarActive } = this.state
-    const buttonText = searchBarActive ? 'Hide' : 'Show'
+    const buttonText = searchBarActive ? 'Hide search bar' : 'Show search bar'
+    const listPadding = searchBarActive ? 70 : 0
     return (
       <React.Fragment>
         <View style={Styles.container}>
           <FlatList
+            style={{ paddingTop: listPadding }}
             data={results}
-            renderItem={item => <Text style={Styles.result}>{item}</Text>}
-          />
-          <Button
-            title={buttonText}
-            color="white"
-            onPress={this.handleButtonPress}
+            keyExtractor={keyExtractor}
+            renderItem={({ item }) => (
+              <Text style={Styles.result}>{item.name}</Text>
+            )}
           />
         </View>
+        <Button
+          style={Styles.button}
+          title={buttonText}
+          color="black"
+          onPress={this.handleButtonPress}
+        />
         <SearchBar
           ref={ref => (this.searchBar = ref)}
           data={SiliconValleyCharacters}
           handleResults={this.handleResults}
+          onHide={this.handleHide}
           showOnLoad={ShowOnLoad}
         />
       </React.Fragment>
@@ -65,17 +74,19 @@ export default class App extends React.Component {
   }
 }
 
+const keyExtractor = (item, index) => index.toString()
+
 const Styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'black',
-    paddingBottom: 20
+    backgroundColor: 'black'
   },
   result: {
-    fontSize: 28,
+    fontSize: 18,
     padding: 10,
     color: 'white'
+  },
+  button: {
+    position: 'absolute'
   }
 })
