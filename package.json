@@ -16,7 +16,7 @@
     "fix": "npm run lint -- --fix",
     "lint": "eslint index.js",
     "prepublishOnly": "npm run test",
-    "test": "npm run lint && npm run prettier:diff"
+    "test": "npm run lint"
   },
   "author": {
     "name": "Dave Olsen",
