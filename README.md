@@ -50,6 +50,7 @@ hideBack | boolean | `false` | Hide the back button.
 hideX | boolean | `false` | Hide the X icon which clears the input.
 iOSPadding | boolean | `true` | Pad the size of the iOS status bar.
 iOSHideShadow | boolean | `false` | Hide the shadow under the search bar in iOS.
+iOSPaddingBackgroundColor | string | `transparent` | Change the background color of the padding.
 clearOnShow | boolean | `false` | Clear input when the search bar is shown.
 clearOnHide | boolean | `true` | Clear input when the search bar is hidden.
 clearOnBlur | boolean | `false` | Clear input when the search bar is blurred.
