@@ -116,7 +116,8 @@ export default class Search extends Component {
     if (animate) {
       Animated.timing(this.state.top, {
         toValue: 0,
-        duration: animationDuration
+        duration: animationDuration,
+        useNativeDriver: true,
       }).start();
     } else {
       this.setState({ top: new Animated.Value(0) });
@@ -131,7 +132,8 @@ export default class Search extends Component {
     if (animate) {
       Animated.timing(this.state.top, {
         toValue: INITIAL_TOP,
-        duration: animationDuration
+        duration: animationDuration,
+        useNativeDriver: true,
       }).start();
       const timerId = setTimeout(() => {
         this._doHide();
@@ -249,7 +251,11 @@ export default class Search extends Component {
         style={[
           styles.container,
           {
-            top: this.state.top,
+            transform: [
+              {
+                translateY: this.state.top
+              }
+            ],
             shadowOpacity: iOSHideShadow ? 0 : 0.7
           }
         ]}>
