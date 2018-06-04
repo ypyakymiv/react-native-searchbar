@@ -50,6 +50,7 @@ hideBack | boolean | `false` | Hide the back button.
 hideX | boolean | `false` | Hide the X icon which clears the input.
 iOSPadding | boolean | `true` | Pad the size of the iOS status bar.
 iOSHideShadow | boolean | `false` | Hide the shadow under the search bar in iOS.
+iOSPaddingBackgroundColor | string | `transparent` | Change the background color of the padding.
 clearOnShow | boolean | `false` | Clear input when the search bar is shown.
 clearOnHide | boolean | `true` | Clear input when the search bar is hidden.
 clearOnBlur | boolean | `false` | Clear input when the search bar is blurred.
@@ -65,9 +66,10 @@ allDataOnEmptySearch | boolean | `false` | Search results behave as a `.filter`,
 
 ## Usage
 
-- Use a ref to show and hide the search bar `ref={(ref) => this.searchBar = ref}`
+- Use a ref to show and hide the search bar and set the text input value`ref={(ref) => this.searchBar = ref}`
 	- `this.searchBar.show()`
 	- `this.searchBar.hide()`
+	- `this.searchBar.setValue("text to set")`
 
 - Write your own search logic with `handleSearch` or provide some `data` and use the results handed back from `handleResults`.
 - Use your powers for good!
