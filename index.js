@@ -264,9 +264,9 @@ export default class Search extends Component {
             ],
             shadowOpacity: iOSHideShadow ? 0 : 0.7
           }
-        ]}>
+        ]} onLayout={onLayout}>
         {this.state.show && (
-          <View style={[styles.navWrapper, { backgroundColor }]} onLayout={onLayout}>
+          <View style={[styles.navWrapper, { backgroundColor }]}>
             {Platform.OS === 'ios' &&
               iOSPadding && <View style={{ height: 20, backgroundColor: iOSPaddingBackgroundColor }} />}
             <View
