@@ -57,7 +57,8 @@ export default class Search extends Component {
     keyboardAppearance: PropTypes.string,
     fontFamily: PropTypes.string,
     allDataOnEmptySearch: PropTypes.bool,
-    editable: PropTypes.bool
+    editable: PropTypes.bool,
+    onLayout: PropTypes.func
   };
 
   static defaultProps = {
@@ -90,7 +91,8 @@ export default class Search extends Component {
     allDataOnEmptySearch: false,
     backCloseSize: 28,
     fontSize: 20,
-    editable: true
+    editable: true,
+    onLayout: null
   };
 
   constructor(props) {
